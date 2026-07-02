@@ -1,0 +1,290 @@
+/* Stacksmith webfonts
+   ----------------------------------------------------------------
+   Display  : Playfair Display  — the wordmark & all editorial headlines
+   Text/UI  : Hanken Grotesk    — body copy, UI, owner-facing prose
+   Mono     : JetBrains Mono    — automation-flow tags, code, technical labels
+
+   Loaded from Google Fonts. See readme.md → "Font substitution" — Playfair
+   Display matches the supplied wordmark exactly; Hanken Grotesk is a best-fit
+   substitution for the body grotesque (confirm or supply the real file). */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+/* ============================================================
+   COLOURS — Stacksmith
+   Warm paper, blacksmith ink, forest green. One accent, used
+   with discipline. Base values first, semantic aliases below.
+   ============================================================ */
+
+:root {
+  /* ---- Paper (warm neutral surfaces) ---------------------- */
+  --paper:          #F4F1E9;  /* page background — warm cream            */
+  --paper-raised:   #FBFAF6;  /* cards, raised surfaces (lighter)        */
+  --paper-sunken:   #ECE7DB;  /* wells, code blocks, inset fields        */
+  --paper-tint:     #EFEBE1;  /* subtle banding / alternating sections   */
+
+  /* ---- Ink (warm near-black → muted greys) ---------------- */
+  --ink:            #1A1915;  /* primary text, buttons, the anvil mark   */
+  --ink-800:        #2C2A23;  /* strong headings on paper                */
+  --ink-700:        #46443A;  /* secondary text                          */
+  --ink-500:        #6E6B5F;  /* muted body, captions                    */
+  --ink-400:        #8C887B;  /* labels, placeholders, eyebrows          */
+  --ink-300:        #B4AF9F;  /* disabled text, faint meta               */
+
+  /* ---- Lines & hairlines --------------------------------- */
+  --line:           #E2DDCF;  /* default hairline on paper               */
+  --line-strong:    #D2CCB9;  /* dividers that need to read              */
+  --line-ink:       rgba(26,25,21,0.12); /* lines over ink surfaces      */
+
+  /* ---- Forest (the single brand accent) ------------------ */
+  --forest:         #2C6E4B;  /* primary accent — "We will."             */
+  --forest-700:     #235A3D;  /* hover / pressed                         */
+  --forest-900:     #173B28;  /* deepest, text on tint                   */
+  --forest-300:     #5E9B7C;  /* light accent, on-ink mint               */
+  --forest-tint:    #E4EDE6;  /* accent surface wash                     */
+  --forest-tint-2:  #D6E5DB;  /* accent surface, one step up             */
+
+  /* ---- On-ink (text/marks placed on dark ink) ------------ */
+  --on-ink:         #F4F1E9;  /* primary text on ink                     */
+  --on-ink-muted:   #B7B3A6;  /* secondary text on ink                   */
+  --on-ink-faint:   rgba(244,241,233,0.14); /* lines on ink              */
+  --mint-on-ink:    #7FBF9B;  /* accent that survives on dark ink        */
+
+  /* ---- Semantic states (used sparingly in UI) ------------ */
+  --success:        #2C6E4B;  /* same as forest — success is on-brand    */
+  --success-tint:   #E4EDE6;
+  --warning:        #B07A1E;  /* warm ochre                              */
+  --warning-tint:   #F4E9CF;
+  --danger:         #AE3A2B;  /* muted brick                             */
+  --danger-tint:    #F3DED9;
+
+  /* ============================================================
+     SEMANTIC ALIASES — prefer these in components
+     ============================================================ */
+  --bg-page:        var(--paper);
+  --bg-surface:     var(--paper-raised);
+  --bg-sunken:      var(--paper-sunken);
+  --bg-inverse:     var(--ink);
+
+  --text-strong:    var(--ink);
+  --text-body:      var(--ink-700);
+  --text-muted:     var(--ink-500);
+  --text-subtle:    var(--ink-400);
+  --text-on-inverse: var(--on-ink);
+
+  --border-default: var(--line);
+  --border-strong:  var(--line-strong);
+
+  --accent:         var(--forest);
+  --accent-hover:   var(--forest-700);
+  --accent-surface: var(--forest-tint);
+  --accent-on-inverse: var(--mint-on-ink);
+
+  --focus-ring:     rgba(44,110,75,0.45); /* forest, for :focus-visible  */
+}
+/* ============================================================
+   TYPOGRAPHY — Stacksmith
+   Playfair Display for editorial headlines (high contrast,
+   confident). Hanken Grotesk for everything you read closely.
+   JetBrains Mono for technical / automation-flow tags.
+   ============================================================ */
+
+:root {
+  /* ---- Families ------------------------------------------ */
+  --font-display: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --font-sans:    'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Weights ------------------------------------------- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    800;
+
+  /* ---- Type scale (rem, 16px base) ----------------------- */
+  --text-2xs:  0.6875rem; /* 11 — mono micro-tags                */
+  --text-xs:   0.75rem;   /* 12 — eyebrows, meta                 */
+  --text-sm:   0.875rem;  /* 14 — captions, dense UI             */
+  --text-base: 1rem;      /* 16 — body                           */
+  --text-md:   1.125rem;  /* 18 — lead body                      */
+  --text-lg:   1.375rem;  /* 22 — large body / small headings    */
+  --text-xl:   1.75rem;   /* 28 — h4                             */
+  --text-2xl:  2.25rem;   /* 36 — h3                             */
+  --text-3xl:  3rem;      /* 48 — h2                             */
+  --text-4xl:  4rem;      /* 64 — h1                             */
+  --text-5xl:  5.25rem;   /* 84 — hero display                   */
+  --text-6xl:  6.75rem;   /* 108 — oversized statement           */
+
+  /* ---- Line heights -------------------------------------- */
+  --leading-none:    1;
+  --leading-tight:   1.08;  /* display headlines                 */
+  --leading-snug:    1.25;  /* sub-heads                         */
+  --leading-normal:  1.5;   /* UI                                */
+  --leading-relaxed: 1.65;  /* long-form body                    */
+
+  /* ---- Letter spacing ------------------------------------ */
+  --tracking-tight:  -0.02em; /* large display                   */
+  --tracking-snug:   -0.01em; /* headings                        */
+  --tracking-normal: 0em;
+  --tracking-wide:   0.08em;  /* eyebrows                        */
+  --tracking-caps:   0.14em;  /* uppercase mono tags             */
+
+  /* ---- Semantic roles ------------------------------------ */
+  --display-family: var(--font-display);
+  --heading-family: var(--font-display);
+  --body-family:    var(--font-sans);
+  --label-family:   var(--font-sans);
+  --mono-family:    var(--font-mono);
+}
+
+/* ---- Eyebrow / section-label utility ---------------------- */
+.ss-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+/* ============================================================
+   SPACING & LAYOUT — Stacksmith
+   4px base grid. Generous, Figma-grade whitespace.
+   ============================================================ */
+
+:root {
+  /* ---- Space scale (4px base) ---------------------------- */
+  --space-0:   0;
+  --space-1:   0.25rem;  /* 4   */
+  --space-2:   0.5rem;   /* 8   */
+  --space-3:   0.75rem;  /* 12  */
+  --space-4:   1rem;     /* 16  */
+  --space-5:   1.5rem;   /* 24  */
+  --space-6:   2rem;     /* 32  */
+  --space-7:   2.5rem;   /* 40  */
+  --space-8:   3rem;     /* 48  */
+  --space-9:   4rem;     /* 64  */
+  --space-10:  5rem;     /* 80  */
+  --space-11:  6rem;     /* 96  */
+  --space-12:  8rem;     /* 128 */
+  --space-13:  10rem;    /* 160 */
+
+  /* ---- Layout -------------------------------------------- */
+  --container-max:   1200px;  /* standard content width            */
+  --container-wide:  1320px;  /* full marketing width              */
+  --container-prose: 680px;   /* long-form reading measure         */
+  --gutter:          var(--space-6);   /* page side padding (desktop) */
+  --gutter-mobile:   var(--space-5);
+
+  --section-y:       var(--space-12);  /* vertical rhythm between sections */
+  --section-y-tight: var(--space-10);
+}
+/* ============================================================
+   RADIUS & BORDERS — Stacksmith
+   Soft, confident corners. The anvil mark is pill-rounded, so
+   the system leans rounded — but never fully bubbly on cards.
+   ============================================================ */
+
+:root {
+  --radius-xs:    6px;    /* tags, small chips                 */
+  --radius-sm:    8px;    /* inputs, small buttons             */
+  --radius-md:    12px;   /* buttons, default controls         */
+  --radius-lg:    16px;   /* cards                             */
+  --radius-xl:    24px;   /* large panels, feature cards       */
+  --radius-2xl:   32px;   /* hero media, big surfaces          */
+  --radius-pill:  999px;  /* pills, avatars, the mark's slabs  */
+
+  --border-width:      1px;
+  --border-width-thick: 1.5px;
+}
+/* ============================================================
+   SHADOWS & ELEVATION — Stacksmith
+   Warm-tinted, low-spread shadows. Light, like paper lifting
+   off paper — never a hard drop shadow.
+   ============================================================ */
+
+:root {
+  /* Tinted with the ink hue (warm), never pure black */
+  --shadow-xs:  0 1px 2px rgba(26,25,21,0.05);
+  --shadow-sm:  0 2px 6px -1px rgba(26,25,21,0.07);
+  --shadow-md:  0 6px 20px -6px rgba(26,25,21,0.12);
+  --shadow-lg:  0 18px 44px -12px rgba(26,25,21,0.16);
+  --shadow-xl:  0 36px 80px -24px rgba(26,25,21,0.22);
+
+  /* Focus ring (forest) */
+  --shadow-focus: 0 0 0 3px var(--focus-ring);
+
+  /* Inset for sunken wells */
+  --shadow-inset: inset 0 1px 2px rgba(26,25,21,0.06);
+
+  /* Transitions — calm, no bounce */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);    /* @kind other */
+  --ease-in-out: cubic-bezier(0.45, 0, 0.2, 1);    /* @kind other */
+  --duration-fast:   120ms;                         /* @kind other */
+  --duration-base:   200ms;                         /* @kind other */
+  --duration-slow:   320ms;                         /* @kind other */
+}
+/* ============================================================
+   BASE — Stacksmith
+   Minimal reset + element defaults. Sets the warm-paper canvas
+   and the display/body type relationship across the system.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--weight-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings — Playfair, tight, ink */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-snug);
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); line-height: var(--leading-snug); }
+h5 { font-size: var(--text-lg); line-height: var(--leading-snug); }
+
+p { margin: 0 0 1em; text-wrap: pretty; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+
+strong { font-weight: var(--weight-semibold); color: var(--text-strong); }
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+::selection { background: var(--forest-tint-2); color: var(--ink); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin: var(--space-7) 0;
+}
+
+img { max-width: 100%; display: block; }

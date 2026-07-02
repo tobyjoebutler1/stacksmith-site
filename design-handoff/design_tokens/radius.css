@@ -1,0 +1,18 @@
+/* ============================================================
+   RADIUS & BORDERS — Stacksmith
+   Soft, confident corners. The anvil mark is pill-rounded, so
+   the system leans rounded — but never fully bubbly on cards.
+   ============================================================ */
+
+:root {
+  --radius-xs:    6px;    /* tags, small chips                 */
+  --radius-sm:    8px;    /* inputs, small buttons             */
+  --radius-md:    12px;   /* buttons, default controls         */
+  --radius-lg:    16px;   /* cards                             */
+  --radius-xl:    24px;   /* large panels, feature cards       */
+  --radius-2xl:   32px;   /* hero media, big surfaces          */
+  --radius-pill:  999px;  /* pills, avatars, the mark's slabs  */
+
+  --border-width:      1px;
+  --border-width-thick: 1.5px;
+}

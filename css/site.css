@@ -1,0 +1,90 @@
+/* ============================================================
+   SITE — Stacksmith marketing website
+   Shared chrome, the scroll-driven motion system, the Services
+   "See it run" demo animation, and responsive rules.
+   Tokens live in tokens.css; component states in components.css.
+   ============================================================ */
+
+/* ---------- Layout helpers -------------------------------- */
+.container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); }
+.svc-grid { display: grid; grid-template-columns: 300px 1fr; }
+.split2 { display: grid; grid-template-columns: 1fr 1fr; }
+.faq-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; }
+
+/* ---------- Header ----------------------------------------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .bar { height: 72px; display: flex; align-items: center; justify-content: space-between; }
+.site-nav { display: flex; align-items: center; gap: 30px; }
+.site-nav a { font-size: 15px; color: var(--ink-700); font-weight: 500; text-decoration: none; }
+.site-nav a:hover { color: var(--ink); }
+.site-nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.ss-logo__mark svg { display: block; }
+
+/* ---------- Motion system (scroll-position-driven) ---------
+   CSS Scroll-linked Animations; browsers without support simply
+   show everything. Keyframes copied verbatim from the handoff. */
+@keyframes ssRise  { from { opacity: 0;   transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes ssPop   { from { opacity: .35; transform: scale(.84); }       to { opacity: 1; transform: scale(1); } }
+@keyframes ssGrowX { from { transform: scaleX(0); }                      to { transform: scaleX(1); } }
+@supports (animation-timeline: view()) {
+  .ss-reveal  { opacity: 0; animation: ssRise linear both; animation-timeline: view(); animation-range: entry 2% cover 22%; }
+  .ss-seq     { animation: ssPop linear both; animation-timeline: view(); animation-range: cover 10% cover 35%; }
+  .ss-seqline { transform-origin: left center; animation: ssGrowX linear both; animation-timeline: view(); animation-range: cover 12% cover 38%; }
+}
+
+/* ---------- "See it run" demos (Services) ------------------ */
+.ssdemo-toggle .chev { transition: transform .42s cubic-bezier(.22,1,.36,1); }
+.ssdemo-toggle.is-open .chev { transform: rotate(90deg); }
+.ssdemo-toggle:hover { border-color: var(--line-strong) !important; }
+.ssdemo-toggle:hover .chev { background: var(--forest-tint-2) !important; }
+
+.ssdemo-panel { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .6s cubic-bezier(.22,1,.36,1), opacity .45s ease; }
+.ssdemo-panel.is-open { max-height: 3000px; opacity: 1; }
+
+/* flow steps ignite in sequence on open (per-step --d delay) */
+.ssflow .ss-fill { height: 0; transition: height 1.9s cubic-bezier(.42,0,.25,1) .12s; }
+.ssdemo-panel.is-open .ssflow .ss-fill { height: 100%; }
+
+.ssflow .ss-step { opacity: 0; transform: translateY(16px);
+  transition: opacity .6s cubic-bezier(.22,1,.36,1) var(--d,0ms), transform .6s cubic-bezier(.22,1,.36,1) var(--d,0ms); }
+.ssdemo-panel.is-open .ssflow .ss-step { opacity: 1; transform: none; }
+
+.ssflow .ss-dot { background: var(--paper-sunken); color: var(--ink-400); border: 1px solid var(--line);
+  transition: background .55s cubic-bezier(.22,1,.36,1) var(--d,0ms), color .55s cubic-bezier(.22,1,.36,1) var(--d,0ms), border-color .55s var(--d,0ms), box-shadow .55s var(--d,0ms); }
+.ssdemo-panel.is-open .ssflow .ss-step .ss-dot { background: var(--forest); color: var(--on-ink); border-color: transparent; }
+.ssdemo-panel.is-open .ssflow .ss-step.is-final .ss-dot { background: var(--forest-700); }
+
+@keyframes ssDotPulse { 0% { box-shadow: 0 0 0 0 rgba(44,110,75,.30); } 70% { box-shadow: 0 0 0 11px rgba(44,110,75,0); } 100% { box-shadow: 0 0 0 0 rgba(44,110,75,0); } }
+.ssdemo-panel.is-open .ssflow .ss-step .ss-dot { animation: ssDotPulse 2.2s ease-out var(--d,0ms); }
+
+/* ---------- Reduced motion --------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ss-reveal, .ss-seq, .ss-seqline { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .ssflow .ss-step { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .ssflow .ss-fill { transition: none !important; }
+  .ssdemo-panel { transition: opacity .2s ease !important; }
+  .ssdemo-panel.is-open .ssflow .ss-step .ss-dot { animation: none !important; }
+}
+
+/* ---------- Responsive ------------------------------------- */
+@media (max-width: 960px) {
+  .grid3 { grid-template-columns: 1fr !important; }
+  .svc-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .split2, .faq-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .flow-band { overflow-x: auto; padding-bottom: 8px; }
+  .flow-band > .flow-band-inner { min-width: 720px; }
+}
+@media (max-width: 700px) {
+  .container { padding: 0 22px; }
+  .site-header .bar { gap: 12px; }
+  .site-nav { gap: 16px; }
+  .site-nav a { font-size: 13.5px; }
+  .form-2col { grid-template-columns: 1fr !important; }
+}

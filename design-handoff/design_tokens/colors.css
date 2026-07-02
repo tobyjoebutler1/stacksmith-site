@@ -1,0 +1,72 @@
+/* ============================================================
+   COLOURS — Stacksmith
+   Warm paper, blacksmith ink, forest green. One accent, used
+   with discipline. Base values first, semantic aliases below.
+   ============================================================ */
+
+:root {
+  /* ---- Paper (warm neutral surfaces) ---------------------- */
+  --paper:          #F4F1E9;  /* page background — warm cream            */
+  --paper-raised:   #FBFAF6;  /* cards, raised surfaces (lighter)        */
+  --paper-sunken:   #ECE7DB;  /* wells, code blocks, inset fields        */
+  --paper-tint:     #EFEBE1;  /* subtle banding / alternating sections   */
+
+  /* ---- Ink (warm near-black → muted greys) ---------------- */
+  --ink:            #1A1915;  /* primary text, buttons, the anvil mark   */
+  --ink-800:        #2C2A23;  /* strong headings on paper                */
+  --ink-700:        #46443A;  /* secondary text                          */
+  --ink-500:        #6E6B5F;  /* muted body, captions                    */
+  --ink-400:        #8C887B;  /* labels, placeholders, eyebrows          */
+  --ink-300:        #B4AF9F;  /* disabled text, faint meta               */
+
+  /* ---- Lines & hairlines --------------------------------- */
+  --line:           #E2DDCF;  /* default hairline on paper               */
+  --line-strong:    #D2CCB9;  /* dividers that need to read              */
+  --line-ink:       rgba(26,25,21,0.12); /* lines over ink surfaces      */
+
+  /* ---- Forest (the single brand accent) ------------------ */
+  --forest:         #2C6E4B;  /* primary accent — "We will."             */
+  --forest-700:     #235A3D;  /* hover / pressed                         */
+  --forest-900:     #173B28;  /* deepest, text on tint                   */
+  --forest-300:     #5E9B7C;  /* light accent, on-ink mint               */
+  --forest-tint:    #E4EDE6;  /* accent surface wash                     */
+  --forest-tint-2:  #D6E5DB;  /* accent surface, one step up             */
+
+  /* ---- On-ink (text/marks placed on dark ink) ------------ */
+  --on-ink:         #F4F1E9;  /* primary text on ink                     */
+  --on-ink-muted:   #B7B3A6;  /* secondary text on ink                   */
+  --on-ink-faint:   rgba(244,241,233,0.14); /* lines on ink              */
+  --mint-on-ink:    #7FBF9B;  /* accent that survives on dark ink        */
+
+  /* ---- Semantic states (used sparingly in UI) ------------ */
+  --success:        #2C6E4B;  /* same as forest — success is on-brand    */
+  --success-tint:   #E4EDE6;
+  --warning:        #B07A1E;  /* warm ochre                              */
+  --warning-tint:   #F4E9CF;
+  --danger:         #AE3A2B;  /* muted brick                             */
+  --danger-tint:    #F3DED9;
+
+  /* ============================================================
+     SEMANTIC ALIASES — prefer these in components
+     ============================================================ */
+  --bg-page:        var(--paper);
+  --bg-surface:     var(--paper-raised);
+  --bg-sunken:      var(--paper-sunken);
+  --bg-inverse:     var(--ink);
+
+  --text-strong:    var(--ink);
+  --text-body:      var(--ink-700);
+  --text-muted:     var(--ink-500);
+  --text-subtle:    var(--ink-400);
+  --text-on-inverse: var(--on-ink);
+
+  --border-default: var(--line);
+  --border-strong:  var(--line-strong);
+
+  --accent:         var(--forest);
+  --accent-hover:   var(--forest-700);
+  --accent-surface: var(--forest-tint);
+  --accent-on-inverse: var(--mint-on-ink);
+
+  --focus-ring:     rgba(44,110,75,0.45); /* forest, for :focus-visible  */
+}

@@ -1,0 +1,65 @@
+/* ============================================================
+   BASE — Stacksmith
+   Minimal reset + element defaults. Sets the warm-paper canvas
+   and the display/body type relationship across the system.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--weight-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings — Playfair, tight, ink */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-snug);
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); line-height: var(--leading-snug); }
+h5 { font-size: var(--text-lg); line-height: var(--leading-snug); }
+
+p { margin: 0 0 1em; text-wrap: pretty; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+
+strong { font-weight: var(--weight-semibold); color: var(--text-strong); }
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+::selection { background: var(--forest-tint-2); color: var(--ink); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin: var(--space-7) 0;
+}
+
+img { max-width: 100%; display: block; }

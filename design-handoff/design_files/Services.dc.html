@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/tokens/radius.css">
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/tokens/shadows.css">
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/tokens/base.css">
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/components/components.css">
+  <link rel="stylesheet" href="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/styles.css">
+  <script src="_ds/stacksmith-design-system-93023c9b-6b2d-4938-9255-939b56dc21e2/_ds_bundle.js"></script>
+  <style>
+    /* ---- scroll-in reveals (CSS scroll-timeline; graceful no-op where unsupported) ---- */
+    @keyframes ssRise { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+    @supports (animation-timeline: view()) {
+      .ss-reveal { opacity:0; animation: ssRise linear both; animation-timeline: view(); animation-range: entry 2% cover 22%; }
+    }
+    .no-reveal .ss-reveal { opacity:1 !important; transform:none !important; animation:none !important; }
+
+    /* ---- "See it run" toggle ---- */
+    .ssdemo-toggle .chev { transition: transform .42s cubic-bezier(.22,1,.36,1); }
+    .ssdemo-toggle.is-open .chev { transform: rotate(90deg); }
+    .ssdemo-toggle:hover { border-color: var(--line-strong) !important; }
+    .ssdemo-toggle:hover .chev { background: var(--forest-tint-2) !important; }
+
+    /* ---- expandable panel ---- */
+    .ssdemo-panel { max-height:0; opacity:0; overflow:hidden; transition: max-height .6s cubic-bezier(.22,1,.36,1), opacity .45s ease; }
+    .ssdemo-panel.is-open { max-height:3000px; opacity:1; }
+
+    /* ---- flow steps: ignite in sequence on open (per-step --d delay) ---- */
+    .ssflow .ss-fill { height:0; transition: height 1.9s cubic-bezier(.42,0,.25,1) .12s; }
+    .ssdemo-panel.is-open .ssflow .ss-fill { height:100%; }
+
+    .ssflow .ss-step { opacity:0; transform:translateY(16px);
+      transition: opacity .6s cubic-bezier(.22,1,.36,1) var(--d,0ms), transform .6s cubic-bezier(.22,1,.36,1) var(--d,0ms); }
+    .ssdemo-panel.is-open .ssflow .ss-step { opacity:1; transform:none; }
+
+    .ssflow .ss-dot { background: var(--paper-sunken); color: var(--ink-400); border:1px solid var(--line);
+      transition: background .55s cubic-bezier(.22,1,.36,1) var(--d,0ms), color .55s cubic-bezier(.22,1,.36,1) var(--d,0ms), border-color .55s var(--d,0ms), box-shadow .55s var(--d,0ms); }
+    .ssdemo-panel.is-open .ssflow .ss-step .ss-dot { background: var(--forest); color: var(--on-ink); border-color: transparent; }
+    .ssdemo-panel.is-open .ssflow .ss-step.is-final .ss-dot { background: var(--forest-700); }
+
+    @keyframes ssDotPulse { 0% { box-shadow:0 0 0 0 rgba(44,110,75,.30); } 70% { box-shadow:0 0 0 11px rgba(44,110,75,0); } 100% { box-shadow:0 0 0 0 rgba(44,110,75,0); } }
+    .ssdemo-panel.is-open .ssflow .ss-step .ss-dot { animation: ssDotPulse 2.2s ease-out var(--d,0ms); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ss-reveal { opacity:1 !important; transform:none !important; animation:none !important; }
+      .ssflow .ss-step { opacity:1 !important; transform:none !important; transition:none !important; }
+      .ssflow .ss-fill { transition:none !important; }
+      .ssdemo-panel { transition: opacity .2s ease !important; }
+      .ssdemo-panel.is-open .ssflow .ss-step .ss-dot { animation:none !important; }
+    }
+  </style>
+</helmet>
+
+<div class="{{ rootClass }}" style="background:var(--paper); color:var(--ink-700); font-family:'Hanken Grotesk',sans-serif; min-height:100%;">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 86%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-bottom:1px solid var(--line);">
+    <div style="max-width:1180px; margin:0 auto; padding:0 32px; height:72px; display:flex; align-items:center; justify-content:space-between;">
+      <a href="Home.dc.html" style="display:flex; align-items:center; text-decoration:none;">
+        <x-import component-from-global-scope="StacksmithDesignSystem_93023c.Logo" size="{{ logoSize }}" hint-size="150px,30px"></x-import>
+      </a>
+      <nav style="display:flex; align-items:center; gap:30px;">
+        <a href="Services.dc.html" style="font-size:15px; color:var(--ink); font-weight:600; text-decoration:none;">Services</a>
+        <a href="How we work.dc.html" style="font-size:15px; color:var(--ink-700); font-weight:500; text-decoration:none;">How we work</a>
+        <a href="Contact.dc.html" style="font-size:15px; color:var(--ink-700); font-weight:500; text-decoration:none;">Contact</a>
+      </nav>
+      <div style="display:flex; align-items:center;">
+        <x-import component-from-global-scope="StacksmithDesignSystem_93023c.Button" variant="primary" size="sm" as="a" href="Contact.dc.html" icon-trailing="{{ calIconSm }}" hint-size="auto,38px">Book a call</x-import>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ PAGE INTRO ============ -->
+  <section style="padding:88px 0 8px;">
+    <div style="max-width:1180px; margin:0 auto; padding:0 32px;">
+      <div style="max-width:760px;">
+        <x-import component-from-global-scope="StacksmithDesignSystem_93023c.SectionLabel" hint-size="auto,20px">What we build</x-import>
+        <h1 style="font-family:'Playfair Display',serif; font-size:clamp(40px,5vw,68px); line-height:1.04; letter-spacing:-0.025em; font-weight:600; margin:18px 0 0; color:var(--ink); text-wrap:balance;">Eight systems that fix the problems you never get round to solving.</h1>
+        <p style="font-size:20px; line-height:1.55; color:var(--ink-500); max-width:580px; margin:24px 0 0;">We build them, install them, and make sure they keep working. No tool for you to learn and babysit. Open <span style="color:var(--ink-700); font-weight:600;">"See it run"</span> on any system below to watch it work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GROUP 01 — FOUNDATION ============ -->
+  <section style="padding:80px 0;">
+    <div style="max-width:1180px; margin:0 auto; padding:0 32px;">
+      <div class="ss-reveal" style="display:flex; align-items:baseline; gap:20px; max-width:760px; padding-bottom:8px;">
+        <span style="font-family:'Playfair Display',serif; font-size:clamp(34px,4vw,58px); font-weight:600; color:var(--forest); line-height:0.9; letter-spacing:-0.02em;">01</span>
+        <div>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(28px,3vw,38px); font-weight:600; line-height:1.05; letter-spacing:-0.02em; color:var(--ink); margin:0;">Your digital foundation</h2>
+          <p style="font-size:17px; color:var(--ink-500); line-height:1.55; margin:12px 0 0; max-width:560px;">Before anything else, these two things need to exist. Without them, every other system is built on sand.</p>
+        </div>
+      </div>
+
+      <!-- service: website -->
+      <div class="ss-reveal" style="border-top:1px solid var(--line); padding:52px 0; display:grid; grid-template-columns:300px 1fr; gap:48px;">
+        <div>
+          <div style="width:52px; height:52px; border-radius:14px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">{{ icGlobe }}</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--ink); margin:0;">A website that works</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">The problem</span></div>
+            <p style="font-size:15px; color:var(--ink-500); line-height:1.6; margin:0;">You have a website. It's old, it's slow, and every time someone asks for the URL you feel a small wave of embarrassment. Or you don't have one at all, and you're relying on a Facebook page from 2019.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">What we build</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">A clean, fast, mobile-first site — properly coded, not thrown together on a page builder. Loads fast, looks right on every device, and is built to turn visitors into enquiries rather than just exist.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--forest); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-900);">After it's live</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">You can send people to your website without bracing yourself. Enquiries come in through a form that actually works. New visitors land on something that makes the business look real.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- service: GDPR -->
+      <div class="ss-reveal" style="border-top:1px solid var(--line); padding:52px 0; display:grid; grid-template-columns:300px 1fr; gap:48px;">
+        <div>
+          <div style="width:52px; height:52px; border-radius:14px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">{{ icShield }}</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--ink); margin:0;">GDPR-compliant data capture</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">The problem</span></div>
+            <p style="font-size:15px; color:var(--ink-500); line-height:1.6; margin:0;">You collect names, emails and phone numbers — at the till, on a booking form, at the door — and then do nothing with them, because you're not sure you're allowed to or they're in a spreadsheet nobody touches.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">What we build</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">A compliant, dual-consent contact system built into the touchpoints you already have — booking confirmation, receipt, web journey. Every contact collected properly and stored somewhere you can actually use.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--forest); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-900);">After it's live</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">You own a real marketing list. You can contact your customers without worrying about GDPR. Every other system we build — campaigns, review requests, birthday messages — runs on this foundation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GROUP 02 — CUSTOMER ENGINE (tinted) ============ -->
+  <sc-if value="{{ bandMiddle }}" hint-placeholder-val="{{ on }}">
+  <section style="padding:80px 0; background:var(--paper-tint);">
+    <div style="max-width:1180px; margin:0 auto; padding:0 32px;">
+      <div class="ss-reveal" style="display:flex; align-items:baseline; gap:20px; max-width:760px; padding-bottom:8px;">
+        <span style="font-family:'Playfair Display',serif; font-size:clamp(34px,4vw,58px); font-weight:600; color:var(--forest); line-height:0.9; letter-spacing:-0.02em;">02</span>
+        <div>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(28px,3vw,38px); font-weight:600; line-height:1.05; letter-spacing:-0.02em; color:var(--ink); margin:0;">Your customer engine</h2>
+          <p style="font-size:17px; color:var(--ink-500); line-height:1.55; margin:12px 0 0; max-width:560px;">The systems that turn a visitor into a customer, and a customer into a repeat customer. Each one runs on its own — open a demo to watch it work.</p>
+        </div>
+      </div>
+
+      <!-- service: enquiry capture (HAS DEMO) -->
+      <div class="ss-reveal" style="border-top:1px solid var(--line-strong); padding:52px 0;">
+        <div style="display:grid; grid-template-columns:300px 1fr; gap:48px;">
+          <div>
+            <div style="width:52px; height:52px; border-radius:14px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">{{ icMail }}</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--ink); margin:0;">Enquiry capture &amp; follow-up</h3>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">The problem</span></div>
+              <p style="font-size:15px; color:var(--ink-500); line-height:1.6; margin:0;">A lead comes in through the website, a missed call, or a Google message. Nobody gets back to them for three hours — or at all — because the day got busy. They've already booked somewhere else.</p>
+            </div>
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">What we build</span></div>
+              <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">Automatic capture of enquiries from every channel — web form, missed call, Google message. An instant, personal first response. Routing by venue or service. A follow-up sequence that doesn't feel like spam.</p>
+            </div>
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--forest); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-900);">After it's live</span></div>
+              <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">Every enquiry gets an immediate, personal response, even when you're mid-job. Your leads stop going cold. You stop finding out three days later that someone who wanted to spend money didn't.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- demo -->
+        <div style="display:grid; grid-template-columns:300px 1fr; gap:48px; margin-top:30px;">
+          <div></div>
+          <div>
+            <button class="ssdemo-toggle {{ enquiryToggleClass }}" onClick="{{ toggleEnquiry }}" aria-expanded="{{ enquiryOpen }}" style="appearance:none; -webkit-appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:12px; background:var(--paper-raised); border:1px solid var(--line); border-radius:999px; padding:9px 18px 9px 9px; color:var(--ink); font-family:'Hanken Grotesk',sans-serif; font-size:14px; font-weight:600;">
+              <span class="chev" style="width:28px; height:28px; border-radius:50%; background:var(--forest-tint); color:var(--forest); display:inline-flex; align-items:center; justify-content:center; flex:none;">{{ chevIcon }}</span>
+              <span style="white-space:nowrap;">See it run</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-400); padding-left:2px;">Interactive</span>
+            </button>
+            <div class="ssdemo-panel {{ enquiryPanelClass }}">
+              <div style="padding:30px 0 6px;">
+                <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-500); background:var(--paper-raised); border:1px solid var(--line); padding:8px 14px; border-radius:999px; margin-bottom:26px;"><span style="color:var(--forest); display:inline-flex;">{{ fiZap }}</span>Triggered by a new enquiry — web form, missed call or Google message</span>
+                <div class="ssflow" style="position:relative;">
+                  <div style="position:absolute; left:23px; top:34px; bottom:34px; width:2px; background:var(--line); border-radius:2px;"><span class="ss-fill" style="position:absolute; left:0; top:0; width:100%; background:var(--forest); border-radius:2px;"></span></div>
+
+                  <article class="ss-step" style="--d:0ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiMail }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">An enquiry lands</h4>
+                      <p style="font-size:14px; color:var(--ink-500); line-height:1.5; margin:6px 0 0;">Sinéad fills in the form on Brennan Tiling's site asking about a bathroom retile.</p>
+                    </div>
+                  </article>
+
+                  <article class="ss-step" style="--d:340ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiChat }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--forest-900); margin-bottom:6px;">Within a minute</span>
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">An instant reply goes out</h4>
+                      <div style="margin-top:12px; max-width:430px; background:var(--paper-raised); border:1px solid var(--line); border-radius:16px 16px 16px 5px; padding:14px 16px; box-shadow:var(--shadow-sm);">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><span style="width:22px; height:22px; border-radius:7px; background:var(--forest); color:var(--on-ink); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:700; font-size:11px;">B</span><span style="font-weight:600; font-size:13px; color:var(--ink);">Brennan Tiling</span><span style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">SMS</span></div>
+                        <p style="margin:0; font-size:14px; line-height:1.5; color:var(--ink-700);">Hi Sinéad, thanks for getting in touch about the bathroom retile. We've got your details and Mark will come back to you today with a time to call out and take a look.</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="ss-step" style="--d:680ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiBell }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--forest-900); margin-bottom:6px;">Same moment</span>
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">You get pinged, with the details attached</h4>
+                      <div style="display:flex; gap:12px; padding:13px 15px; border-radius:13px; border:1px solid var(--line); background:var(--paper-raised); margin-top:12px; max-width:430px;">
+                        <span style="width:26px; height:26px; border-radius:8px; flex:none; display:flex; align-items:center; justify-content:center; background:var(--forest-tint); color:var(--forest);">{{ fiPhoneSm }}</span>
+                        <div style="min-width:0;"><div style="font-weight:600; font-size:14px; color:var(--ink);">New lead · Bathroom retile</div><div style="font-size:13px; color:var(--ink-500); margin-top:2px;">Sinéad — Rathmines · prefers a callback after 5pm. Logged and routed to Mark.</div></div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="ss-step" style="--d:1020ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiClock }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--forest-900); margin-bottom:6px;">If it goes quiet for two days</span>
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">One gentle nudge — never more</h4>
+                      <div style="margin-top:12px; max-width:430px; background:var(--paper-raised); border:1px solid var(--line); border-radius:16px 16px 16px 5px; padding:14px 16px; box-shadow:var(--shadow-sm);">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><span style="width:22px; height:22px; border-radius:7px; background:var(--forest); color:var(--on-ink); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:700; font-size:11px;">B</span><span style="font-weight:600; font-size:13px; color:var(--ink);">Brennan Tiling</span><span style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">SMS</span></div>
+                        <p style="margin:0; font-size:14px; line-height:1.5; color:var(--ink-700);">Hi Sinéad, just checking you got our message about the bathroom — happy to pop out for a quick look whenever suits you.</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="ss-step is-final" style="--d:1360ms; position:relative; display:flex; gap:18px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiCheck }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">The job lands in the diary</h4>
+                      <p style="font-size:14px; color:var(--ink-500); line-height:1.5; margin:6px 0 0;">Instead of going cold while the kettle's on a job. Answered first, every time.</p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- service: reviews (HAS DEMO) -->
+      <div class="ss-reveal" style="border-top:1px solid var(--line-strong); padding:52px 0;">
+        <div style="display:grid; grid-template-columns:300px 1fr; gap:48px;">
+          <div>
+            <div style="width:52px; height:52px; border-radius:14px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">{{ icStar }}</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--ink); margin:0;">Review generation &amp; response</h3>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">The problem</span></div>
+              <p style="font-size:15px; color:var(--ink-500); line-height:1.6; margin:0;">You have 23 Google reviews, the most recent from 14 months ago. Your competitor across the road has 280. You know reviews matter — you just never remember to ask, and nobody follows through.</p>
+            </div>
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">What we build</span></div>
+              <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">Automatic review requests by SMS or email after a visit. Happy customers go straight to Google; unhappy ones are caught privately so you can fix it first. Responses auto-drafted for your approval, or fully hands-off.</p>
+            </div>
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--forest); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-900);">After it's live</span></div>
+              <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">Your review count grows on its own. Your rating climbs. New customers searching for what you offer see a business that's clearly active and well-regarded. Problems get caught before they go public.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- demo -->
+        <div style="display:grid; grid-template-columns:300px 1fr; gap:48px; margin-top:30px;">
+          <div></div>
+          <div>
+            <button class="ssdemo-toggle {{ reviewsToggleClass }}" onClick="{{ toggleReviews }}" aria-expanded="{{ reviewsOpen }}" style="appearance:none; -webkit-appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:12px; background:var(--paper-raised); border:1px solid var(--line); border-radius:999px; padding:9px 18px 9px 9px; color:var(--ink); font-family:'Hanken Grotesk',sans-serif; font-size:14px; font-weight:600;">
+              <span class="chev" style="width:28px; height:28px; border-radius:50%; background:var(--forest-tint); color:var(--forest); display:inline-flex; align-items:center; justify-content:center; flex:none;">{{ chevIcon }}</span>
+              <span style="white-space:nowrap;">See it run</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-400); padding-left:2px;">Interactive</span>
+            </button>
+            <div class="ssdemo-panel {{ reviewsPanelClass }}">
+              <div style="padding:30px 0 6px;">
+                <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-500); background:var(--paper-raised); border:1px solid var(--line); padding:8px 14px; border-radius:999px; margin-bottom:26px;"><span style="color:var(--forest); display:inline-flex;">{{ fiCheckSm }}</span>Triggered the moment an appointment is marked done</span>
+                <div class="ssflow" style="position:relative;">
+                  <div style="position:absolute; left:23px; top:34px; bottom:34px; width:2px; background:var(--line); border-radius:2px;"><span class="ss-fill" style="position:absolute; left:0; top:0; width:100%; background:var(--forest); border-radius:2px;"></span></div>
+
+                  <article class="ss-step" style="--d:0ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiCheck }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">An appointment finishes</h4>
+                      <p style="font-size:14px; color:var(--ink-500); line-height:1.5; margin:6px 0 0;">Aoife has just had her colour done at The Loft Hair Co.</p>
+                    </div>
+                  </article>
+
+                  <article class="ss-step" style="--d:340ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiChat }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--forest-900); margin-bottom:6px;">Three hours later</span>
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">A review request by text</h4>
+                      <div style="margin-top:12px; max-width:430px; background:var(--paper-raised); border:1px solid var(--line); border-radius:16px 16px 16px 5px; padding:14px 16px; box-shadow:var(--shadow-sm);">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><span style="width:22px; height:22px; border-radius:7px; background:var(--forest); color:var(--on-ink); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:700; font-size:11px;">L</span><span style="font-weight:600; font-size:13px; color:var(--ink);">The Loft Hair Co.</span><span style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">SMS</span></div>
+                        <p style="margin:0 0 6px; font-size:14px; line-height:1.5; color:var(--ink-700);">Hi Aoife, lovely to see you at The Loft today. If you have a spare minute, a quick Google review would mean the world to the team.</p>
+                        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--forest-900); word-break:break-all;">g.page/theloft/review</span>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="ss-step" style="--d:680ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiBranch }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--forest-900); margin-bottom:6px;">The next day</span>
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0 0 12px; color:var(--ink);">Have they left one?</h4>
+                      <div style="display:flex; flex-direction:column; gap:10px; max-width:430px;">
+                        <div style="display:flex; gap:12px; padding:13px 15px; border-radius:13px; border:1px solid var(--line); background:var(--paper-raised);">
+                          <span style="width:26px; height:26px; border-radius:8px; flex:none; display:flex; align-items:center; justify-content:center; background:var(--forest); color:var(--on-ink);">{{ fiCheckSm }}</span>
+                          <div style="min-width:0;"><div style="font-weight:600; font-size:14px; color:var(--ink);">Yes — they're done</div><div style="font-size:13px; color:var(--ink-500); margin-top:2px;">Removed from the sequence. Not one more message.</div></div>
+                        </div>
+                        <div style="display:flex; gap:12px; padding:13px 15px; border-radius:13px; border:1px solid var(--line); background:var(--paper-raised);">
+                          <span style="width:26px; height:26px; border-radius:8px; flex:none; display:flex; align-items:center; justify-content:center; background:var(--forest-300); color:var(--on-ink);">{{ fiBellSm }}</span>
+                          <div style="min-width:0;">
+                            <div style="font-weight:600; font-size:14px; color:var(--ink);">Not yet — one gentle reminder</div>
+                            <div style="margin-top:11px; background:var(--paper); border:1px solid var(--line); border-radius:14px 14px 14px 5px; padding:12px 14px;">
+                              <p style="margin:0; font-size:13.5px; line-height:1.5; color:var(--ink-700);">Hi Aoife, no pressure at all — if you enjoyed your visit, a quick review really helps a small salon like ours.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="ss-step is-final" style="--d:1020ms; position:relative; display:flex; gap:18px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiStar }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">The rating climbs — on its own</h4>
+                      <p style="font-size:14px; color:var(--ink-500); line-height:1.5; margin:6px 0 0;">Anyone unhappy is caught privately first, so it never lands in public before you've had a chance to fix it.</p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- service: repeat marketing (HAS DEMO) -->
+      <div class="ss-reveal" style="border-top:1px solid var(--line-strong); padding:52px 0;">
+        <div style="display:grid; grid-template-columns:300px 1fr; gap:48px;">
+          <div>
+            <div style="width:52px; height:52px; border-radius:14px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">{{ icRepeat }}</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--ink); margin:0;">Repeat customer marketing</h3>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">The problem</span></div>
+              <p style="font-size:15px; color:var(--ink-500); line-height:1.6; margin:0;">You have customers who loved you, spent money, and then disappeared. Not because they were unhappy — they just got busy and forgot. Nobody reminded them to come back.</p>
+            </div>
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">What we build</span></div>
+              <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">Campaigns triggered by real events: birthdays, school holidays, a run of rainy weather, a customer who hasn't visited in 90 days. Personalised by what they bought and when they last came in.</p>
+            </div>
+            <div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--forest); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-900);">After it's live</span></div>
+              <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">Quiet periods get busier. You start seeing faces you recognise more often. Revenue from returning customers climbs without you running a single manual campaign.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- demo -->
+        <div style="display:grid; grid-template-columns:300px 1fr; gap:48px; margin-top:30px;">
+          <div></div>
+          <div>
+            <button class="ssdemo-toggle {{ repeatToggleClass }}" onClick="{{ toggleRepeat }}" aria-expanded="{{ repeatOpen }}" style="appearance:none; -webkit-appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:12px; background:var(--paper-raised); border:1px solid var(--line); border-radius:999px; padding:9px 18px 9px 9px; color:var(--ink); font-family:'Hanken Grotesk',sans-serif; font-size:14px; font-weight:600;">
+              <span class="chev" style="width:28px; height:28px; border-radius:50%; background:var(--forest-tint); color:var(--forest); display:inline-flex; align-items:center; justify-content:center; flex:none;">{{ chevIcon }}</span>
+              <span style="white-space:nowrap;">See it run</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-400); padding-left:2px;">Interactive</span>
+            </button>
+            <div class="ssdemo-panel {{ repeatPanelClass }}">
+              <div style="padding:30px 0 6px;">
+                <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-500); background:var(--paper-raised); border:1px solid var(--line); padding:8px 14px; border-radius:999px; margin-bottom:26px;"><span style="color:var(--forest); display:inline-flex;">{{ fiClockSm }}</span>Triggered 90 days after a customer's last visit</span>
+                <div class="ssflow" style="position:relative;">
+                  <div style="position:absolute; left:23px; top:34px; bottom:34px; width:2px; background:var(--line); border-radius:2px;"><span class="ss-fill" style="position:absolute; left:0; top:0; width:100%; background:var(--forest); border-radius:2px;"></span></div>
+
+                  <article class="ss-step" style="--d:0ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiClock }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">It's been 90 days</h4>
+                      <p style="font-size:14px; color:var(--ink-500); line-height:1.5; margin:6px 0 0;">Liam hasn't been into Quay Street Café since the spring.</p>
+                    </div>
+                  </article>
+
+                  <article class="ss-step" style="--d:340ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiMail }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">A win-back email goes out</h4>
+                      <div style="margin-top:12px; max-width:440px; background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-sm);">
+                        <div style="padding:13px 16px; border-bottom:1px solid var(--line); background:var(--paper);">
+                          <div style="font-size:13px; color:var(--ink-500);"><b style="color:var(--ink); font-weight:600;">Quay Street Café</b> &lt;hello@quaystreet.ie&gt;</div>
+                          <div style="font-family:'Playfair Display',serif; font-weight:600; font-size:17px; margin-top:4px; color:var(--ink); letter-spacing:-0.01em;">We've missed you, Liam</div>
+                        </div>
+                        <div style="padding:15px 16px; font-size:14px; color:var(--ink-700); line-height:1.55;">It's been a while. Here's a coffee on us next time you're passing — just show this at the till.
+                          <div style="display:flex; gap:9px; margin-top:14px; flex-wrap:wrap;"><span style="font-size:13px; font-weight:600; padding:9px 15px; border-radius:10px; background:var(--forest); color:var(--on-ink);">Show on your phone</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="ss-step" style="--d:680ms; position:relative; display:flex; gap:18px; padding-bottom:32px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiChat }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--forest-900); margin-bottom:6px;">A week later, if no visit</span>
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">A short reminder by text</h4>
+                      <div style="margin-top:12px; max-width:430px; background:var(--paper-raised); border:1px solid var(--line); border-radius:16px 16px 16px 5px; padding:14px 16px; box-shadow:var(--shadow-sm);">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><span style="width:22px; height:22px; border-radius:7px; background:var(--forest); color:var(--on-ink); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:700; font-size:11px;">Q</span><span style="font-weight:600; font-size:13px; color:var(--ink);">Quay Street Café</span><span style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">SMS</span></div>
+                        <p style="margin:0; font-size:14px; line-height:1.5; color:var(--ink-700);">Hi Liam, your coffee's still waiting at Quay Street whenever you're nearby. See you soon.</p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="ss-step is-final" style="--d:1020ms; position:relative; display:flex; gap:18px;">
+                    <div style="flex:none; width:48px; display:flex; justify-content:center;"><span class="ss-dot" style="position:relative; z-index:1; width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;">{{ fiRepeat }}</span></div>
+                    <div style="flex:1; min-width:0; padding-top:4px;">
+                      <h4 style="font-family:'Hanken Grotesk',sans-serif; font-weight:600; font-size:16px; line-height:1.3; margin:0; color:var(--ink);">They come back</h4>
+                      <p style="font-size:14px; color:var(--ink-500); line-height:1.5; margin:6px 0 0;">Quiet weeks fill up with faces you already know — and you never ran a single manual campaign.</p>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ GROUP 03 — AI LAYER ============ -->
+  <section style="padding:80px 0;">
+    <div style="max-width:1180px; margin:0 auto; padding:0 32px;">
+      <div class="ss-reveal" style="display:flex; align-items:baseline; gap:20px; max-width:760px; padding-bottom:8px;">
+        <span style="font-family:'Playfair Display',serif; font-size:clamp(34px,4vw,58px); font-weight:600; color:var(--forest); line-height:0.9; letter-spacing:-0.02em;">03</span>
+        <div>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(28px,3vw,38px); font-weight:600; line-height:1.05; letter-spacing:-0.02em; color:var(--ink); margin:0;">Your AI layer</h2>
+          <p style="font-size:17px; color:var(--ink-500); line-height:1.55; margin:12px 0 0; max-width:560px;">For the businesses where the phone never stops, or the same questions get asked forty times a week.</p>
+        </div>
+      </div>
+
+      <!-- service: chatbot -->
+      <div class="ss-reveal" style="border-top:1px solid var(--line); padding:52px 0; display:grid; grid-template-columns:300px 1fr; gap:48px;">
+        <div>
+          <div style="width:52px; height:52px; border-radius:14px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">{{ icChat }}</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--ink); margin:0;">AI chatbot</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">The problem</span></div>
+            <p style="font-size:15px; color:var(--ink-500); line-height:1.6; margin:0;">The same ten questions get asked on your website every day. What are your hours? Do you do X? How much is Y? Someone on your team answers them. They shouldn't have to.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">What we build</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">A chatbot trained on your own business — services, pricing, FAQs, hours, booking process. Lives on your website and WhatsApp. Not a generic off-the-shelf bot — built on your information, for your customers.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--forest); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-900);">After it's live</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">Routine questions get answered around the clock without anyone touching them. Staff spend their time on things that need a human. Customers get an answer immediately instead of waiting on an email.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- service: receptionist -->
+      <div class="ss-reveal" style="border-top:1px solid var(--line); padding:52px 0; display:grid; grid-template-columns:300px 1fr; gap:48px;">
+        <div>
+          <div style="width:52px; height:52px; border-radius:14px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">{{ icPhone }}</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--ink); margin:0;">AI receptionist</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">The problem</span></div>
+            <p style="font-size:15px; color:var(--ink-500); line-height:1.6; margin:0;">The phone rings constantly. Half the calls are things any member of staff could handle — bookings, prices, directions, hours. But someone still has to answer, and that someone is usually pulled away from something more important.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">What we build</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">A capable AI that handles phone calls directly — takes bookings, answers real questions, and only puts a call through to a human when it genuinely needs to. Built and run by Charlie, one of the Stacksmith founders.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--forest); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-900);">After it's live</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">The phone still rings. It just doesn't need you to answer it every time. Staff attention goes to what needs a person. The AI handles the volume; the humans handle the exceptions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- service: consulting -->
+      <div class="ss-reveal" style="border-top:1px solid var(--line); padding:52px 0; display:grid; grid-template-columns:300px 1fr; gap:48px;">
+        <div>
+          <div style="width:52px; height:52px; border-radius:14px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">{{ icUsers }}</div>
+          <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--ink); margin:0;">Hands-on digital consulting</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">The problem</span></div>
+            <p style="font-size:15px; color:var(--ink-500); line-height:1.6; margin:0;">You know the business needs to be more digital. You don't know where to start, what to prioritise, or who to trust. The last agency conversation ended in a proposal you didn't follow and results you couldn't measure.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--ink-300); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-400);">What we build</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">A Stacksmith person works alongside you and your team — in person in Dublin, or closely remote. We map what's actually happening, find where systems would make the biggest difference, and build them. It ends with a working system, not a slide deck.</p>
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="width:18px; height:2px; background:var(--forest); border-radius:2px;"></span><span style="font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--forest-900);">After it's live</span></div>
+            <p style="font-size:15px; color:var(--ink-700); line-height:1.6; margin:0;">You understand your own operations better than before. You have systems doing things that were previously manual or not done at all. You know what's running, how to check it, and who to call if something's wrong.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING CTA ============ -->
+  <section style="padding:8px 0 96px;">
+    <div style="max-width:1180px; margin:0 auto; padding:0 32px;">
+      <div class="ss-reveal" style="background:var(--ink); color:var(--on-ink); border-radius:var(--radius-2xl); padding:72px 40px; position:relative; overflow:hidden; text-align:center;">
+        <div style="position:absolute; inset:0; opacity:0.06; color:#ffffff; display:flex; align-items:center; justify-content:center;">{{ ctaMotif }}</div>
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(34px,4.5vw,56px); font-weight:600; color:var(--on-ink); margin:0 0 16px; letter-spacing:-0.025em; position:relative; text-wrap:balance;">Not sure which of these you need?</h2>
+        <p style="color:var(--on-ink-muted); font-size:19px; margin:0 auto 32px; max-width:520px; position:relative; line-height:1.55;">That's what the first conversation is for. Tell us a bit about your business and what's frustrating you, and we'll tell you honestly where we'd start.</p>
+        <div style="display:flex; gap:14px; justify-content:center; position:relative;">
+          <x-import component-from-global-scope="StacksmithDesignSystem_93023c.Button" variant="accent" size="lg" as="a" href="Contact.dc.html" icon-trailing="{{ arrowIcon }}" hint-size="auto,52px">Book a call</x-import>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="border-top:1px solid var(--line); padding:64px 0 40px;">
+    <div style="max-width:1180px; margin:0 auto; padding:0 32px;">
+      <div style="display:flex; justify-content:space-between; gap:48px; flex-wrap:wrap;">
+        <div style="max-width:300px;">
+          <x-import component-from-global-scope="StacksmithDesignSystem_93023c.Logo" size="{{ logoSize }}" hint-size="150px,30px"></x-import>
+          <p style="color:var(--ink-500); font-size:15px; line-height:1.55; margin:18px 0 0;">We build it, we run it, and you get your time back. A Dublin digital agency for small Irish businesses.</p>
+        </div>
+        <div style="display:flex; gap:72px; flex-wrap:wrap;">
+          <div>
+            <h5 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-400); margin:0 0 16px; font-weight:500;">What we do</h5>
+            <a href="Services.dc.html" style="display:block; font-size:15px; color:var(--ink-700); margin-bottom:11px; text-decoration:none;">Websites &amp; enquiries</a>
+            <a href="Services.dc.html" style="display:block; font-size:15px; color:var(--ink-700); margin-bottom:11px; text-decoration:none;">Reviews &amp; repeat business</a>
+            <a href="Services.dc.html" style="display:block; font-size:15px; color:var(--ink-700); margin-bottom:11px; text-decoration:none;">AI chat &amp; reception</a>
+          </div>
+          <div>
+            <h5 style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-400); margin:0 0 16px; font-weight:500;">Get in touch</h5>
+            <a href="mailto:hello@stacksmith.ie" style="display:block; font-size:15px; color:var(--ink-700); margin-bottom:11px; text-decoration:none;">hello@stacksmith.ie</a>
+            <a href="tel:+35315550123" style="display:block; font-size:15px; color:var(--ink-700); margin-bottom:11px; text-decoration:none;">+353 1 555 0123</a>
+            <span style="display:block; font-size:15px; color:var(--ink-500);">Dublin, Ireland</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:56px; padding-top:26px; border-top:1px solid var(--line); flex-wrap:wrap; gap:12px;">
+        <span style="font-size:13.5px; color:var(--ink-400);">© 2026 Stacksmith. Built and run in Dublin.</span>
+        <span style="font-size:13.5px; color:var(--ink-400);">Privacy · Terms</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;bandMiddle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;firstDemoOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demos&quot;},&quot;quietReveals&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: {
+        enquiry: !!(props && props.firstDemoOpen),
+        reviews: false,
+        repeat: false,
+      },
+    };
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle(key) {
+    this.setState(function (s) {
+      var next = Object.assign({}, s.open);
+      next[key] = !next[key];
+      return { open: next };
+    });
+  }
+
+  renderVals() {
+    const h = React.createElement;
+    const ic = (paths, size, w) => h('svg', { viewBox: '0 0 24 24', width: size || 24, height: size || 24, fill: 'none', stroke: 'currentColor', strokeWidth: w || 2, strokeLinecap: 'round', strokeLinejoin: 'round' }, paths.map((d, i) => h('path', { key: i, d })));
+
+    const P = {
+      globe: ['M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18', 'M3 12h18', 'M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18'],
+      shield: ['M12 3l7.5 2.8v5.7c0 4.6-3.2 7.6-7.5 8.7-4.3-1.1-7.5-4.1-7.5-8.7V5.8z', 'M9 12l2 2 4-4'],
+      mail: ['M3 6h18v12H3z', 'm3 7 9 6 9-6'],
+      star: ['M12 3.2l2.5 5.1 5.6.8-4 4 1 5.6L12 16.1 6.9 18.7l1-5.6-4-4 5.6-.8z'],
+      repeat: ['M17 2l4 4-4 4', 'M3 11V9a4 4 0 0 1 4-4h14', 'M7 22l-4-4 4-4', 'M21 13v2a4 4 0 0 1-4 4H3'],
+      chat: ['M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.6-.8L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z'],
+      phone: ['M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z'],
+      users: ['M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2', 'M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8', 'M22 21v-2a4 4 0 0 0-3-3.9', 'M16 3.1a4 4 0 0 1 0 7.8'],
+      calendar: ['M3 5h18v16H3z', 'M3 9h18', 'M8 3v4', 'M16 3v4'],
+      arrow: ['M5 12h14', 'M13 6l6 6-6 6'],
+      chevron: ['M9 6l6 6-6 6'],
+      bell: ['M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9', 'M13.7 21a2 2 0 0 1-3.4 0'],
+      clock: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18', 'M12 7v5l3 2'],
+      check: ['M20 6 9 17l-5-5'],
+      branch: ['M6 4v14', 'M6 9c0 4 4 4 8 4', 'M18 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4', 'M6 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4', 'M14 15a2 2 0 1 0 0-4 2 2 0 0 0 0 4'],
+      zap: ['M13 2L3 14h9l-1 8 10-12h-9z'],
+    };
+
+    const motif = (stroke) => {
+      const pts = [[40, 60], [170, 30], [300, 80], [120, 140], [260, 165], [70, 210], [345, 45], [205, 95]];
+      const links = [[0, 1], [1, 2], [1, 7], [7, 4], [3, 5], [0, 3], [2, 6], [4, 2]];
+      const els = [];
+      links.forEach((l, i) => els.push(h('line', { key: 'l' + i, x1: pts[l[0]][0], y1: pts[l[0]][1], x2: pts[l[1]][0], y2: pts[l[1]][1], stroke, strokeWidth: 1 })));
+      pts.forEach((p, i) => els.push(h('rect', { key: 'n' + i, x: p[0] - 13, y: p[1] - 13, width: 26, height: 26, rx: 9, fill: 'none', stroke, strokeWidth: 1.5 })));
+      return h('svg', { viewBox: '0 0 400 240', width: '100%', height: '100%', preserveAspectRatio: 'xMidYMid slice' }, els);
+    };
+
+    const open = this.state.open;
+    const quiet = this.props.quietReveals ?? true;
+
+    return {
+      on: true,
+      logoSize: 26,
+      bandMiddle: this.props.bandMiddle ?? true,
+      rootClass: quiet ? '' : 'no-reveal',
+
+      ctaMotif: motif('#ffffff'),
+      calIconSm: ic(P.calendar, 16),
+      arrowIcon: ic(P.arrow, 18),
+      chevIcon: ic(P.chevron, 15, 2.4),
+
+      icGlobe: ic(P.globe, 24),
+      icShield: ic(P.shield, 24),
+      icMail: ic(P.mail, 24),
+      icStar: ic(P.star, 24),
+      icRepeat: ic(P.repeat, 24),
+      icChat: ic(P.chat, 24),
+      icPhone: ic(P.phone, 24),
+      icUsers: ic(P.users, 24),
+
+      // flow dot icons
+      fiMail: ic(P.mail, 22, 1.8),
+      fiChat: ic(P.chat, 22, 1.8),
+      fiBell: ic(P.bell, 22, 1.8),
+      fiClock: ic(P.clock, 22, 1.8),
+      fiCheck: ic(P.check, 22, 2),
+      fiBranch: ic(P.branch, 22, 1.8),
+      fiStar: ic(P.star, 22, 1.8),
+      fiRepeat: ic(P.repeat, 22, 1.8),
+      // small inline icons
+      fiZap: ic(P.zap, 14, 1.8),
+      fiCheckSm: ic(P.check, 14, 2.2),
+      fiBellSm: ic(P.bell, 14, 1.8),
+      fiClockSm: ic(P.clock, 14, 1.8),
+      fiPhoneSm: ic(P.phone, 15, 1.8),
+
+      // demo state
+      toggleEnquiry: () => this.toggle('enquiry'),
+      toggleReviews: () => this.toggle('reviews'),
+      toggleRepeat: () => this.toggle('repeat'),
+      enquiryOpen: open.enquiry, reviewsOpen: open.reviews, repeatOpen: open.repeat,
+      enquiryPanelClass: open.enquiry ? 'is-open' : '',
+      reviewsPanelClass: open.reviews ? 'is-open' : '',
+      repeatPanelClass: open.repeat ? 'is-open' : '',
+      enquiryToggleClass: open.enquiry ? 'is-open' : '',
+      reviewsToggleClass: open.reviews ? 'is-open' : '',
+      repeatToggleClass: open.repeat ? 'is-open' : '',
+    };
+  }
+}
+</script>
+</body>
+</html>

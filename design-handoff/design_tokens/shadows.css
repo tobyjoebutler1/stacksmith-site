@@ -1,0 +1,27 @@
+/* ============================================================
+   SHADOWS & ELEVATION — Stacksmith
+   Warm-tinted, low-spread shadows. Light, like paper lifting
+   off paper — never a hard drop shadow.
+   ============================================================ */
+
+:root {
+  /* Tinted with the ink hue (warm), never pure black */
+  --shadow-xs:  0 1px 2px rgba(26,25,21,0.05);
+  --shadow-sm:  0 2px 6px -1px rgba(26,25,21,0.07);
+  --shadow-md:  0 6px 20px -6px rgba(26,25,21,0.12);
+  --shadow-lg:  0 18px 44px -12px rgba(26,25,21,0.16);
+  --shadow-xl:  0 36px 80px -24px rgba(26,25,21,0.22);
+
+  /* Focus ring (forest) */
+  --shadow-focus: 0 0 0 3px var(--focus-ring);
+
+  /* Inset for sunken wells */
+  --shadow-inset: inset 0 1px 2px rgba(26,25,21,0.06);
+
+  /* Transitions — calm, no bounce */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);    /* @kind other */
+  --ease-in-out: cubic-bezier(0.45, 0, 0.2, 1);    /* @kind other */
+  --duration-fast:   120ms;                         /* @kind other */
+  --duration-base:   200ms;                         /* @kind other */
+  --duration-slow:   320ms;                         /* @kind other */
+}
