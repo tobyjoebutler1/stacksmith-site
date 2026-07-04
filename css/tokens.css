@@ -1,14 +1,13 @@
 /* Stacksmith webfonts
    ----------------------------------------------------------------
-   Display  : Playfair Display  — the wordmark & all editorial headlines
-   Text/UI  : Hanken Grotesk    — body copy, UI, owner-facing prose
-   Mono     : JetBrains Mono    — automation-flow tags, code, technical labels
+   Display + Text/UI : Sora — one geometric sans at two temperatures
+                       (700 tight for display, 400 for body, 800 for stats)
+   Mono              : JetBrains Mono — automation-flow tags, code,
+                       technical labels (the brand's technical signature)
 
-   Loaded from Google Fonts. See readme.md → "Font substitution" — Playfair
-   Display matches the supplied wordmark exactly; Hanken Grotesk is a best-fit
-   substitution for the body grotesque (confirm or supply the real file). */
+   Loaded from Google Fonts. */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300..800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 /* ============================================================
    COLOURS — Stacksmith
    Warm paper, blacksmith ink, forest green. One accent, used
@@ -83,15 +82,14 @@
 }
 /* ============================================================
    TYPOGRAPHY — Stacksmith
-   Playfair Display for editorial headlines (high contrast,
-   confident). Hanken Grotesk for everything you read closely.
-   JetBrains Mono for technical / automation-flow tags.
+   Sora for everything you read — 700 tight for display, 400 for
+   body. JetBrains Mono for technical / automation-flow tags.
    ============================================================ */
 
 :root {
   /* ---- Families ------------------------------------------ */
-  --font-display: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
-  --font-sans:    'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans:    'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ---- Weights ------------------------------------------- */
@@ -123,8 +121,8 @@
   --leading-relaxed: 1.65;  /* long-form body                    */
 
   /* ---- Letter spacing ------------------------------------ */
-  --tracking-tight:  -0.02em; /* large display                   */
-  --tracking-snug:   -0.01em; /* headings                        */
+  --tracking-tight:  -0.03em; /* large display                   */
+  --tracking-snug:   -0.02em; /* headings                        */
   --tracking-normal: 0em;
   --tracking-wide:   0.08em;  /* eyebrows                        */
   --tracking-caps:   0.14em;  /* uppercase mono tags             */
@@ -245,7 +243,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Headings — Playfair, tight, ink */
+/* Headings — Sora, tight, ink */
 h1, h2, h3, h4, h5 {
   font-family: var(--font-display);
   color: var(--text-strong);
