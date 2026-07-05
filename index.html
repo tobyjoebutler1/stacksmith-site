@@ -3,12 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stacksmith — We build the systems behind your business. Then we run them.</title>
-<meta name="description" content="Stacksmith builds and runs the marketing, follow-up and AI systems behind small Irish businesses — and stays close enough to make sure they actually work.">
+<title>Stacksmith · We build the systems behind your business. Then we run them.</title>
+<meta name="description" content="Stacksmith builds and runs the marketing, follow-up and AI systems behind small Irish businesses, and stays close enough to make sure they actually work.">
 <link rel="icon" href="assets/stacksmith-logo.png">
+<!-- REMIX: social sharing meta -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Stacksmith · We build the systems behind your business. Then we run them.">
+<meta property="og:description" content="Stacksmith builds and runs the marketing, follow-up and AI systems behind small Irish businesses.">
+<meta property="og:url" content="https://stacksmith.ie/">
+<meta name="twitter:card" content="summary">
+<!-- REMIX: fonts loaded from the head instead of a CSS @import, so they start downloading immediately -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/remix.css">
 </head>
 <body>
 <div style="background:var(--paper); color:var(--ink-700); font-family:var(--font-sans); min-height:100%;">
@@ -30,13 +41,27 @@
         </span>
       </a>
       <nav class="site-nav">
+        <a href="index.html" aria-current="page">Home</a>
         <a href="services.html">Services</a>
         <a href="how-we-work.html">How we work</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <div style="display:flex; align-items:center;">
+      <div class="cta-wrap" style="display:flex; align-items:center;">
         <a class="ss-btn ss-btn--primary ss-btn--sm" href="contact.html">Book a call <span class="ss-btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v16H3z"/><path d="M3 9h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span></a>
       </div>
+      <!-- REMIX: mobile nav toggle (shown under 700px) -->
+      <button class="ss-navtoggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+        <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <!-- REMIX: mobile nav panel -->
+    <div class="ss-mobilenav" id="mobile-nav">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="services.html">Services</a>
+      <a href="how-we-work.html">How we work</a>
+      <a href="contact.html">Contact</a>
+      <a class="ss-mobilenav__cta" href="contact.html">Book a call</a>
     </div>
   </header>
 
@@ -46,7 +71,7 @@
       <div class="ss-hero__copy">
         <span class="ss-badge ss-badge--forest"><span class="ss-badge__dot"></span>Dublin · done-for-you systems</span>
         <h1 class="ss-hero__h1">We build the systems behind your business. <em>Then we run them.</em></h1>
-        <p class="ss-hero__sub">Stacksmith builds and runs the marketing, follow-up and AI systems behind small Irish businesses — and stays close enough to make sure they actually work.</p>
+        <p class="ss-hero__sub">Stacksmith builds and runs the marketing, follow-up and AI systems behind small Irish businesses, and stays close enough to make sure they actually work.</p>
         <div class="ss-hero__actions">
           <a class="ss-btn ss-btn--accent ss-btn--lg" href="contact.html">Book a call <span class="ss-btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v16H3z"/><path d="M3 9h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span></a>
           <a class="ss-btn ss-btn--secondary ss-btn--lg" href="how-we-work.html">See how it works</a>
@@ -54,7 +79,7 @@
       </div>
 
       <div class="ss-hero__stage" id="hero-stage" aria-label="Demo: a customer is thanked by text, leaves a Google review, and the reply is posted automatically">
-        <span class="ss-live"><span class="ss-live__dot"></span>Live — a review, earned &amp; answered</span>
+        <span class="ss-live"><span class="ss-live__dot"></span>Live: a review, earned &amp; answered</span>
 
         <div class="ss-float ss-float--a" aria-hidden="true"><span class="ss-float__stars">★★★★★</span> New review</div>
         <div class="ss-float ss-float--b" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reply posted · auto</div>
@@ -81,11 +106,11 @@
                 <div class="ss-phone__body">
                   <div class="ss-msg ss-msg--sys" data-t="500">
                     <div class="ss-msg__tag">Appointment finished</div>
-                    <b>Aoife — Colour &amp; cut</b>
+                    <b>Aoife · Colour &amp; cut</b>
                     <span>Marked done in the diary · 4:15pm</span>
                   </div>
                   <div class="ss-typing" data-show="1200" data-hide="2200"><i></i><i></i><i></i></div>
-                  <div class="ss-msg ss-msg--out" data-t="2300">Hi Aoife, thanks a million for choosing The Loft today — it was lovely having you in. If you've a spare minute, a quick Google review would mean the world to the team.</div>
+                  <div class="ss-msg ss-msg--out" data-t="2300">Hi Aoife, thanks a million for choosing The Loft today. It was lovely having you in. If you've a spare minute, a quick Google review would mean the world to the team.</div>
                   <div class="ss-msg ss-msg--chip" data-t="3500">g.page/theloft/review</div>
                 </div>
               </div>
@@ -103,16 +128,16 @@
                     <div class="ss-greview__stars">
                       <span data-t="5400">★</span><span data-t="5600">★</span><span data-t="5800">★</span><span data-t="6000">★</span><span data-t="6200">★</span>
                     </div>
-                    <p class="ss-msg" data-t="6600">Couldn't recommend The Loft more — gorgeous colour and so easy to book. Lovely people!</p>
+                    <p class="ss-msg" data-t="6600">Couldn't recommend The Loft more. Gorgeous colour and so easy to book. Lovely people!</p>
                   </div>
                   <div class="ss-greply ss-msg" data-t="8300">
                     <div class="ss-msg__tag">Auto-reply · drafted &amp; posted for you</div>
                     <div class="ss-greply__bubble">
                       <b>Response from the owner · just now</b>
-                      <p>Thanks a million, Aoife — you've made our day. See you next time!</p>
+                      <p>Thanks a million, Aoife. You've made our day. See you next time!</p>
                     </div>
                   </div>
-                  <div class="ss-msg ss-msg--chip ss-msg--chip-solid" data-t="10300"><span class="ss-float__stars" style="font-size:10px;">★</span>4.9 · review #213 — hands-free</div>
+                  <div class="ss-msg ss-msg--chip ss-msg--chip-solid" data-t="10300"><span class="ss-float__stars" style="font-size:10px;">★</span>4.9 · review #213 · hands-free</div>
                 </div>
               </div>
             </div>
@@ -167,7 +192,7 @@
     <div class="container">
       <div class="ss-reveal" style="max-width:640px; margin:0 auto; text-align:center;">
         <span class="ss-section-label">The flow</span>
-        <h2 style="font-family:var(--font-display); font-size:clamp(30px,3.4vw,42px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; margin:16px 0 0; color:var(--ink);">Every enquiry, handled start to finish — on its own.</h2>
+        <h2 style="font-family:var(--font-display); font-size:clamp(30px,3.4vw,42px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; margin:16px 0 0; color:var(--ink);">Every enquiry, handled start to finish, on its own.</h2>
       </div>
       <div class="flow-band">
         <div class="flow-band-inner fb" id="flow-band">
@@ -206,7 +231,7 @@
       <div class="ss-reveal" style="max-width:640px;">
         <span class="ss-section-label">The full stack</span>
         <h2 style="font-family:var(--font-display); font-size:clamp(34px,4vw,50px); line-height:1.05; letter-spacing:-0.02em; font-weight:600; margin:16px 0 0; color:var(--ink);">Getting found, getting in touch, and staying in touch.</h2>
-        <p style="font-size:18px; color:var(--ink-500); margin:18px 0 0; line-height:1.6;">The plumbing most owners know they need but never get round to setting up properly. We cover all of it — pick a system to watch it work.</p>
+        <p style="font-size:18px; color:var(--ink-500); margin:18px 0 0; line-height:1.6;">The plumbing most owners know they need but never get round to setting up properly. We cover all of it. Pick a system to watch it work.</p>
       </div>
 
       <div class="ss-reveal">
@@ -226,19 +251,21 @@
             <div class="ss-show__copy">
               <span class="ss-section-label">What it is</span>
               <h3>A website that works</h3>
-              <p class="ss-show__what">A clean, fast site that turns visitors into enquiries — properly coded, not thrown together on a page builder.</p>
+              <p class="ss-show__what">A clean, fast site that turns visitors into enquiries. Properly coded, not thrown together on a page builder.</p>
               <ol class="ss-show__steps">
                 <li><b>01</b>We design and build it around your business, not a template.</li>
                 <li><b>02</b>Every page guides the visitor toward one action: getting in touch.</li>
-                <li><b>03</b>Enquiries land in a form that actually works — and never get lost.</li>
+                <li><b>03</b>Enquiries land in a form that actually works, and never get lost.</li>
               </ol>
               <p class="ss-show__outcome">You can send people to your website without bracing yourself.</p>
             </div>
             <div class="ssx ssx--site" aria-hidden="true">
-              <!-- MacBook photo: Unsplash licence (free commercial use) — unsplash.com/photos/v_1t1DzfAUA -->
-              <div class="ssx-macphoto" data-i="1">
-                <img class="ssx-macphoto__img" src="assets/devices/macbook-desk.jpg" alt="" width="1300" height="914">
-                <div class="ssx-macphoto__screen">
+              <!-- REMIX: CSS-drawn MacBook. Replaces the photo overlay so the demo site
+                   genuinely sits inside the screen instead of hovering over a photo. -->
+              <div class="ssx-maccss" data-i="1">
+                <div class="ssx-maccss__lid">
+                  <span class="ssx-maccss__cam" aria-hidden="true"></span>
+                  <div class="ssx-macphoto__screen">
                   <div class="ob-frame">
                     <div class="ob-nav" data-i="2">
                       <span class="ob-nav__logo"><i></i>O'Brien Plumbing</span>
@@ -249,18 +276,20 @@
                       <div class="ob-hero__copy">
                         <span class="ob-hero__eyebrow" data-i="3">Dublin · Since 1998</span>
                         <b data-i="3">Plumbing done properly.</b>
-                        <span class="ob-hero__sub" data-i="4">Boilers, bathrooms and emergency call-outs — fixed first time, priced up front.</span>
+                        <span class="ob-hero__sub" data-i="4">Boilers, bathrooms and emergency call-outs, fixed first time and priced up front.</span>
                         <span class="ob-hero__btns" data-i="5"><em class="ob-btn ob-btn--amber ssx-site__btn">Get a free quote</em><em class="ob-btn ob-btn--ghost">Our services</em></span>
-                        <span class="ob-hero__trust" data-i="6"><b>★★★★★</b> 4.9 — 212 Google reviews</span>
+                        <span class="ob-hero__trust" data-i="6"><b>★★★★★</b> 4.9 · 212 Google reviews</span>
                       </div>
                       <div class="ob-hero__art" data-i="4"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z"/></svg></div>
                     </div>
                     <div class="ob-strip" data-i="6"><u></u><u></u><u></u></div>
                   </div>
+                  </div>
                 </div>
+                <div class="ssx-maccss__base" aria-hidden="true"><i></i></div>
               </div>
               <span class="ssx-cursor"><svg viewBox="0 0 24 24" width="21" height="21" fill="#1A1915" stroke="#FBFAF6" stroke-width="1.6" stroke-linejoin="round"><path d="M5 3l14 8-6.5 1.5L9 19z"/></svg></span>
-              <span class="ssx-toast" data-i="8"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>New enquiry — captured</span>
+              <span class="ssx-toast" data-i="8"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>New enquiry captured</span>
             </div>
           </div>
         </div>
@@ -271,11 +300,11 @@
             <div class="ss-show__copy">
               <span class="ss-section-label">What it is</span>
               <h3>Enquiry capture &amp; follow-up</h3>
-              <p class="ss-show__what">Every enquiry — web form, missed call or Google message — is captured and answered within a minute, even when you're mid-job.</p>
+              <p class="ss-show__what">Every enquiry (web form, missed call or Google message) is captured and answered within a minute, even when you're mid-job.</p>
               <ol class="ss-show__steps">
                 <li><b>01</b>An enquiry lands from any channel.</li>
                 <li><b>02</b>An instant, personal reply goes out and you get pinged with the details.</li>
-                <li><b>03</b>If it goes quiet, one gentle nudge follows — never more.</li>
+                <li><b>03</b>If it goes quiet, one gentle nudge follows, never more.</li>
               </ol>
               <p class="ss-show__outcome">Leads stop going cold while you're on a job.</p>
             </div>
@@ -292,8 +321,8 @@
                 <span class="ssx-fhub"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span>
               </div>
               <div class="ssx-sms ssx-shine" data-i="3"><b>Brennan Tiling <span>SMS · 41s later</span></b><p>Hi Sinéad, thanks for getting in touch about the bathroom retile. Mark will come back to you today with a time to call out.</p></div>
-              <div class="ssx-card" data-i="4"><span class="ssx-card__ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><div><b>You get pinged</b><span>Sinéad — Rathmines · prefers a callback after 5pm</span></div></div>
-              <span class="ssx-note" data-i="5"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18"/><path d="M12 7v5l3 2"/></svg>Goes quiet for two days? One gentle nudge — never more.</span>
+              <div class="ssx-card" data-i="4"><span class="ssx-card__ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><div><b>You get pinged</b><span>Sinéad · Rathmines · prefers a callback after 5pm</span></div></div>
+              <span class="ssx-note" data-i="5"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18"/><path d="M12 7v5l3 2"/></svg>Goes quiet for two days? One gentle nudge, never more.</span>
             </div>
           </div>
         </div>
@@ -304,7 +333,7 @@
             <div class="ss-show__copy">
               <span class="ss-section-label">What it is</span>
               <h3>Review generation &amp; response</h3>
-              <p class="ss-show__what">Every finished job quietly asks the customer for a Google review — and the owner's reply writes and posts itself.</p>
+              <p class="ss-show__what">Every finished job quietly asks the customer for a Google review, and the owner's reply writes and posts itself.</p>
               <ol class="ss-show__steps">
                 <li><b>01</b>A job is marked done, and a thank-you text goes out with the review link.</li>
                 <li><b>02</b>Happy customers land on Google; unhappy ones are caught privately first.</li>
@@ -313,14 +342,14 @@
               <p class="ss-show__outcome">Your rating climbs on its own.</p>
             </div>
             <div class="ssx ssx--rev" aria-hidden="true">
-              <div class="ssx-sms ssx-shine" data-i="1"><b>The Loft Hair Co. <span>SMS</span></b><p>Hi Aoife, lovely to see you today — if you've a spare minute, a quick Google review would mean the world to the team.</p></div>
+              <div class="ssx-sms ssx-shine" data-i="1"><b>The Loft Hair Co. <span>SMS</span></b><p>Hi Aoife, lovely to see you today. If you've a spare minute, a quick Google review would mean the world to the team.</p></div>
               <div class="ssx-review ssx-review--big" data-i="2">
                 <span class="ssx-gbadge"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/></svg></span>
                 <div class="ssx-review__who"><span class="ssx-av">A</span><div><b>Aoife B.</b><span>just now</span></div><span class="ssx-rate">★ 4.9</span></div>
                 <div class="ssx-review__stars"><span class="st">★</span><span class="st">★</span><span class="st">★</span><span class="st">★</span><span class="st">★</span><span class="ssx-burst"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
-                <p>Couldn't recommend The Loft more — gorgeous colour and so easy to book. Lovely people!</p>
+                <p>Couldn't recommend The Loft more. Gorgeous colour and so easy to book. Lovely people!</p>
               </div>
-              <div class="ssx-reply" data-i="3"><b>Auto-reply · posted for you</b><p>Thanks a million, Aoife — you've made our day. See you next time!</p></div>
+              <div class="ssx-reply" data-i="3"><b>Auto-reply · posted for you</b><p>Thanks a million, Aoife. You've made our day. See you next time!</p></div>
             </div>
           </div>
         </div>
@@ -331,9 +360,9 @@
             <div class="ss-show__copy">
               <span class="ss-section-label">What it is</span>
               <h3>Repeat-customer marketing</h3>
-              <p class="ss-show__what">Past customers hear from you at exactly the right moment — a birthday, a quiet spell, or 90 days since their last visit.</p>
+              <p class="ss-show__what">Past customers hear from you at exactly the right moment: a birthday, a quiet spell, or 90 days since their last visit.</p>
               <ol class="ss-show__steps">
-                <li><b>01</b>A real event triggers the campaign — no manual sending, ever.</li>
+                <li><b>01</b>A real event triggers the campaign. No manual sending, ever.</li>
                 <li><b>02</b>A personal message goes out, shaped by what they bought and when.</li>
                 <li><b>03</b>One reminder later, they're back in the door.</li>
               </ol>
@@ -344,10 +373,10 @@
               <div class="ssx-mail ssx-shine" data-i="2">
                 <div class="ssx-mail__head"><b>Quay Street Café</b><span>to Liam</span></div>
                 <b class="ssx-mail__subj">We've missed you, Liam</b>
-                <p>It's been a while. Here's a coffee on us next time you're passing — just show this at the till.</p>
+                <p>It's been a while. Here's a coffee on us next time you're passing. Just show this at the till.</p>
                 <span class="ssx-mail__btn">Show at the till</span>
               </div>
-              <span class="ssx-chip ssx-chip--solid" data-i="3"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>He's back — Tuesday, 8:40am</span>
+              <span class="ssx-chip ssx-chip--solid" data-i="3"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>He's back · Tuesday, 8:40am</span>
             </div>
           </div>
         </div>
@@ -358,7 +387,7 @@
             <div class="ss-show__copy">
               <span class="ss-section-label">What it is</span>
               <h3>AI chatbot</h3>
-              <p class="ss-show__what">Answers the common questions on your website and WhatsApp, day and night — trained on your business, not a generic script.</p>
+              <p class="ss-show__what">Answers the common questions on your website and WhatsApp, day and night. Trained on your business, not a generic script.</p>
               <ol class="ss-show__steps">
                 <li><b>01</b>A customer asks a question at any hour.</li>
                 <li><b>02</b>The bot answers from your own prices, hours and services.</li>
@@ -368,12 +397,12 @@
             </div>
             <div class="ssx ssx--bot" aria-hidden="true">
               <div class="ssx-widget" data-i="1">
-                <div class="ssx-widget__head"><span class="ssx-widget__dot"></span><b>The Loft — assistant</b><span>online</span></div>
+                <div class="ssx-widget__head"><span class="ssx-widget__dot"></span><b>The Loft · assistant</b><span>online</span></div>
                 <div class="ssx-widget__body">
                   <div class="ssx-cb ssx-cb--in" data-i="2">Do you take walk-ins on Saturdays?</div>
-                  <span class="ssx-slot"><span class="ssx-dots ssx-dots--1"><i></i><i></i><i></i></span><span class="ssx-cb ssx-cb--out" data-i="3">We do — mornings are quietest. Want me to book you a slot instead?</span></span>
+                  <span class="ssx-slot"><span class="ssx-dots ssx-dots--1"><i></i><i></i><i></i></span><span class="ssx-cb ssx-cb--out" data-i="3">We do. Mornings are quietest. Want me to book you a slot instead?</span></span>
                   <div class="ssx-cb ssx-cb--in" data-i="4">Yes please, around 10.</div>
-                  <span class="ssx-slot"><span class="ssx-dots ssx-dots--2"><i></i><i></i><i></i></span><span class="ssx-cb ssx-cb--out" data-i="5">Done — Saturday 10:15 with Dara. Confirmation is on its way to your phone.</span></span>
+                  <span class="ssx-slot"><span class="ssx-dots ssx-dots--2"><i></i><i></i><i></i></span><span class="ssx-cb ssx-cb--out" data-i="5">Done. Saturday 10:15 with Dara. Confirmation is on its way to your phone.</span></span>
                 </div>
                 <div class="ssx-widget__input"><span>Type a message…</span><i><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></i></div>
               </div>
@@ -388,7 +417,7 @@
             <div class="ss-show__copy">
               <span class="ss-section-label">What it is</span>
               <h3>AI receptionist</h3>
-              <p class="ss-show__what">Picks up when you can't — takes bookings, answers real questions, and only passes on the calls that genuinely need a human.</p>
+              <p class="ss-show__what">Picks up when you can't. Takes bookings, answers real questions, and only passes on the calls that genuinely need a human.</p>
               <ol class="ss-show__steps">
                 <li><b>01</b>The phone rings and the AI answers, naturally.</li>
                 <li><b>02</b>It takes the booking or the details, and logs everything.</li>
@@ -404,8 +433,8 @@
               </div>
               <div class="ssx-wave ssx-wave--mint" data-i="2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
               <p class="ssx-cap" data-i="3">"Hi, I'm looking to get a quote for a garden wall…"</p>
-              <p class="ssx-cap ssx-cap--ai" data-i="4">"No problem — can I take your name and the best number for you?"</p>
-              <div class="ssx-card ssx-card--onink" data-i="5"><span class="ssx-card__ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Details taken &amp; logged</b><span>Quote request — garden wall, Lucan · sent to your inbox</span></div></div>
+              <p class="ssx-cap ssx-cap--ai" data-i="4">"No problem. Can I take your name and the best number for you?"</p>
+              <div class="ssx-card ssx-card--onink" data-i="5"><span class="ssx-card__ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Details taken &amp; logged</b><span>Quote request · garden wall, Lucan · sent to your inbox</span></div></div>
               <div class="ssx-callui__ctl" data-i="6" aria-hidden="true">
                 <i><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg></i>
                 <i><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="5" height="5" rx="1"/><rect x="15" y="4" width="5" height="5" rx="1"/><rect x="4" y="15" width="5" height="5" rx="1"/><rect x="15" y="15" width="5" height="5" rx="1"/></svg></i>
@@ -421,9 +450,9 @@
             <div class="ss-show__copy">
               <span class="ss-section-label">And plenty more</span>
               <h3>Explore all our automations</h3>
-              <p class="ss-show__what">These six are just the start. We build automations tailored to your business and the specific problems that eat your time — whatever they turn out to be.</p>
+              <p class="ss-show__what">These six are just the start. We build automations tailored to your business and the specific problems that eat your time, whatever they turn out to be.</p>
               <ol class="ss-show__steps">
-                <li><b>01</b>Tell us what's eating your time — the jobs you dread or forget.</li>
+                <li><b>01</b>Tell us what's eating your time: the jobs you dread or forget.</li>
                 <li><b>02</b>We'll tell you what we'd automate first, and what it would cost.</li>
                 <li><b>03</b>If we're not the right fit, we'll tell you that too.</li>
               </ol>
@@ -458,19 +487,19 @@
         <h2 style="font-family:var(--font-display); font-size:clamp(34px,4vw,50px); line-height:1.05; letter-spacing:-0.02em; font-weight:600; margin:16px 0 0; color:var(--ink);">We do the first version by hand. Then we make it run itself.</h2>
       </div>
       <div class="ss-reveal grid3" style="gap:36px; margin-top:56px;">
-        <div>
+        <div class="ss-spot">
           <span style="font-family:var(--font-mono); font-size:12px; color:var(--forest); letter-spacing:.1em;">01</span>
           <h4 style="font-family:var(--font-display); font-size:24px; font-weight:600; margin:16px 0 10px; color:var(--ink);">We do it by hand</h4>
-          <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">First we run it ourselves, by hand, so we learn exactly how your business actually works — not how a template thinks it should.</p>
+          <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">First we run it ourselves, by hand, so we learn exactly how your business actually works, not how a template thinks it should.</p>
           <div style="height:1px; background:var(--line); margin-top:22px; position:relative;"><div class="ss-seqline" style="position:absolute; left:0; top:0; width:40%; height:1px; background:var(--forest);"></div></div>
         </div>
-        <div>
+        <div class="ss-spot">
           <span style="font-family:var(--font-mono); font-size:12px; color:var(--forest); letter-spacing:.1em;">02</span>
           <h4 style="font-family:var(--font-display); font-size:24px; font-weight:600; margin:16px 0 10px; color:var(--ink);">We turn it into a system</h4>
           <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">Then we wire it up to keep working on its own. No off-the-shelf tool for you to learn and babysit.</p>
           <div style="height:1px; background:var(--line); margin-top:22px; position:relative;"><div class="ss-seqline" style="position:absolute; left:0; top:0; width:40%; height:1px; background:var(--forest);"></div></div>
         </div>
-        <div>
+        <div class="ss-spot">
           <span style="font-family:var(--font-mono); font-size:12px; color:var(--forest); letter-spacing:.1em;">03</span>
           <h4 style="font-family:var(--font-display); font-size:24px; font-weight:600; margin:16px 0 10px; color:var(--ink);">We run it for you</h4>
           <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">We watch it, fix it when it needs it, and keep it earning. You get your time back.</p>
@@ -483,34 +512,65 @@
   <!-- ============ PROOF (dark) ============ -->
   <section style="padding:96px 0; background:var(--ink); color:var(--on-ink);">
     <div class="container">
-      <div class="ss-reveal" style="display:flex; gap:64px; flex-wrap:wrap; margin-bottom:64px;">
-        <div>
-          <div style="font-family:var(--font-display); font-size:56px; font-weight:800; line-height:1; letter-spacing:-0.03em; color:var(--on-ink);"><em style="font-style:normal; color:var(--mint-on-ink);" data-count="3" data-suffix="×">3×</em></div>
-          <div style="font-size:15px; color:var(--on-ink-muted); margin-top:12px; max-width:200px; line-height:1.5;">more reviews in the first 90 days</div>
-        </div>
-        <div>
-          <div style="font-family:var(--font-display); font-size:56px; font-weight:800; line-height:1; letter-spacing:-0.03em; color:var(--on-ink);">under <em style="font-style:normal; color:var(--mint-on-ink);" data-count="10" data-suffix=" min">10 min</em></div>
-          <div style="font-size:15px; color:var(--on-ink-muted); margin-top:12px; max-width:200px; line-height:1.5;">average reply time to a new enquiry</div>
-        </div>
-        <div>
-          <div style="font-family:var(--font-display); font-size:56px; font-weight:800; line-height:1; letter-spacing:-0.03em; color:var(--on-ink);"><em style="font-style:normal; color:var(--mint-on-ink);">0</em></div>
-          <div style="font-size:15px; color:var(--on-ink-muted); margin-top:12px; max-width:200px; line-height:1.5;">enquiries left sitting unanswered</div>
+      <!-- REMIX: proof section slimmed down. Stats trio and single big quote removed;
+           the scrolling reviews below carry the proof on their own. -->
+      <div class="ss-reveal" style="display:flex; gap:48px; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;">
+        <div style="max-width:540px;">
+          <span class="ss-section-label" style="color:var(--on-ink-muted);">What owners say</span>
+          <h2 style="font-family:var(--font-display); font-size:clamp(32px,3.6vw,46px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; margin:16px 0 0; color:var(--on-ink);">The reviews roll in on their own.</h2>
         </div>
         <div class="ss-feed" aria-label="What the systems handled tonight">
           <div class="ss-feed__head"><span class="ss-feed__dot"></span>Working quietly · tonight</div>
-          <div class="ss-feed__line">21:04 · Missed call — text-back sent</div>
+          <div class="ss-feed__line">21:04 · Missed call · text-back sent</div>
           <div class="ss-feed__line">21:06 · Enquiry logged &amp; routed</div>
           <div class="ss-feed__line">21:12 · Review request delivered</div>
-          <div class="ss-feed__line"><span class="ss-feed__stars">★★★★★</span> 21:31 · Reply posted — auto</div>
+          <div class="ss-feed__line"><span class="ss-feed__stars">★★★★★</span> 21:31 · Reply posted · auto</div>
         </div>
       </div>
-      <blockquote class="ss-reveal" style="font-family:var(--font-display); font-weight:500; font-size:clamp(26px,3vw,38px); line-height:1.3; letter-spacing:-0.01em; color:var(--on-ink); max-width:780px; margin:0;">"I stopped losing jobs to whoever answered their phone first. Now the one answering first is us — and I never touched a thing."</blockquote>
-      <div style="display:flex; align-items:center; gap:14px; margin-top:30px;">
-        <span class="ss-avatar ss-avatar--md">AB</span>
-        <div>
-          <div style="font-weight:600; font-size:15px; color:var(--on-ink);">Aoife Brennan</div>
-          <div style="font-size:14px; color:var(--on-ink-muted);">Brennan Tiling, Galway</div>
+
+      <!-- REMIX: testimonial marquee (21st.dev-style). NOTE: these quotes reuse the
+           site's demo businesses and MUST be swapped for real customer quotes before
+           this ships anywhere public. -->
+      <div class="ss-tmarq ss-reveal" aria-label="What owners say">
+        <div class="ss-tmarq__track">
+          <div class="ss-tmarq__group"><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"Enquiries get answered before I've even seen my phone."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">M</span><div><b>Mark Brennan</b><span>Brennan Tiling</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"We went months without asking for a review. Now it just happens."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">D</span><div><b>Dara</b><span>The Loft Hair Co.</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"Quiet Tuesday mornings aren't quiet any more."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">S</span><div><b>Sinéad</b><span>Quay Street Café</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"The chatbot answers the same ten questions so my staff don't have to."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">C</span><div><b>Conor Murphy</b><span>Murphy Landscaping</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"I forget it's there, which I think is the point."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">N</span><div><b>Niamh</b><span>O'Brien Plumbing</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"Something changes in the business, we ring one number, it's handled."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">R</span><div><b>Rossa</b><span>Rossa's Garage</span></div></div></div></div>
+          <div class="ss-tmarq__group ss-tmarq__group--dup" aria-hidden="true"><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"Enquiries get answered before I've even seen my phone."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">M</span><div><b>Mark Brennan</b><span>Brennan Tiling</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"We went months without asking for a review. Now it just happens."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">D</span><div><b>Dara</b><span>The Loft Hair Co.</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"Quiet Tuesday mornings aren't quiet any more."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">S</span><div><b>Sinéad</b><span>Quay Street Café</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"The chatbot answers the same ten questions so my staff don't have to."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">C</span><div><b>Conor Murphy</b><span>Murphy Landscaping</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"I forget it's there, which I think is the point."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">N</span><div><b>Niamh</b><span>O'Brien Plumbing</span></div></div></div><div class="ss-tmarq__card"><span class="ss-tmarq__stars">★★★★★</span><p>"Something changes in the business, we ring one number, it's handled."</p><div class="ss-tmarq__who"><span class="ss-avatar ss-avatar--sm" style="background:rgba(244,241,233,0.1); color:var(--mint-on-ink); border-color:var(--on-ink-faint);">R</span><div><b>Rossa</b><span>Rossa's Garage</span></div></div></div></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ REMIX: PRICING MODEL ============ -->
+  <section style="padding:96px 0; background:var(--paper-tint);">
+    <div class="container">
+      <div class="ss-reveal" style="max-width:640px;">
+        <span class="ss-section-label">Pricing, plainly</span>
+        <h2 style="font-family:var(--font-display); font-size:clamp(34px,4vw,50px); line-height:1.05; letter-spacing:-0.02em; font-weight:600; margin:16px 0 0; color:var(--ink);">One build fee. One flat monthly. Nothing else.</h2>
+        <p style="font-size:18px; color:var(--ink-500); margin:18px 0 0; line-height:1.6;">No tiers, no per-seat pricing, no surprises. You always know what you pay and what it's doing for you.</p>
+      </div>
+      <div class="ss-reveal ss-price-grid">
+        <div class="ss-price-card">
+          <span class="ss-price-card__step">01 · ONCE</span>
+          <h3>The build</h3>
+          <p>A once-off fee to design, build and install your first system. You watch it work by hand before anything runs on its own.</p>
+          <span class="ss-price-card__foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Priced before we start</span>
+        </div>
+        <div class="ss-price-card ss-price-card--accent">
+          <span class="ss-price-card__step">02 · MONTHLY</span>
+          <h3>The run</h3>
+          <p>A flat monthly fee to keep it earning. We watch it, fix it and tune it as your business changes. That's the whole relationship.</p>
+          <span class="ss-price-card__foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>The price we agree is the price you pay</span>
+        </div>
+        <div class="ss-price-card">
+          <span class="ss-price-card__step">03 · WHENEVER</span>
+          <h3>The exit</h3>
+          <p>No long contract and no lock-in. Stop whenever you like, and what we built for you stays yours.</p>
+          <span class="ss-price-card__foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Leave anytime</span>
+        </div>
+      </div>
+      <div class="ss-reveal" style="margin-top:36px;">
+        <a class="ss-btn ss-btn--secondary ss-btn--md" href="contact.html">Ask what your first system would cost</a>
       </div>
     </div>
   </section>
@@ -527,7 +587,7 @@
         <div class="ss-accordion" style="width:100%;">
           <div class="ss-accordion__item" data-open="true">
             <button class="ss-accordion__head" aria-expanded="true">Do I have to learn anything?<span class="ss-accordion__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span></button>
-            <div class="ss-accordion__panel"><div class="ss-accordion__panel-inner">No. We build it and we run it. You carry on with the job — the system does the remembering.</div></div>
+            <div class="ss-accordion__panel"><div class="ss-accordion__panel-inner">No. We build it and we run it. You carry on with the job. The system does the remembering.</div></div>
           </div>
           <div class="ss-accordion__item" data-open="false">
             <button class="ss-accordion__head" aria-expanded="false">What if I already have a website?<span class="ss-accordion__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span></button>
@@ -549,7 +609,7 @@
   <!-- ============ CTA (dark panel) ============ -->
   <section id="contact" style="padding:0 0 96px; scroll-margin-top:72px;">
     <div class="container">
-      <div class="ss-reveal" style="background:var(--ink); color:var(--on-ink); border-radius:var(--radius-2xl); padding:80px 40px; position:relative; overflow:hidden; text-align:center;">
+      <div class="ss-reveal" style="background:var(--ink); color:var(--on-ink); border-radius:var(--radius-2xl); padding:64px 48px; position:relative; overflow:hidden;">
         <div style="position:absolute; inset:0; opacity:0.09; color:#ffffff; display:flex; align-items:center; justify-content:center;">
           <svg class="ss-net" viewBox="0 0 400 240" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <line x1="40" y1="60" x2="170" y2="30" stroke="currentColor" stroke-width="1"/>
@@ -570,10 +630,41 @@
             <rect x="192" y="82" width="26" height="26" rx="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
           </svg>
         </div>
-        <h2 style="font-family:var(--font-display); font-size:clamp(38px,5vw,64px); font-weight:600; color:var(--on-ink); margin:0 0 16px; letter-spacing:-0.025em; position:relative;">Get your time back.</h2>
-        <p style="color:var(--on-ink-muted); font-size:19px; margin:0 auto 32px; max-width:480px; position:relative; line-height:1.55;">One call. We'll tell you what we'd build first, what it'd do, and what it'd cost. No jargon.</p>
-        <div style="display:flex; gap:14px; justify-content:center; position:relative;">
-          <a class="ss-btn ss-btn--accent ss-btn--lg" href="contact.html">Book a call <span class="ss-btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
+        <!-- REMIX: enquiry form on the home page, so nobody has to leave to get in touch -->
+        <div class="ss-ctastack" style="position:relative;">
+          <div style="text-align:center; max-width:600px; margin:0 auto 34px;">
+            <h2 style="font-family:var(--font-display); font-size:clamp(36px,4.5vw,58px); font-weight:600; color:var(--on-ink); margin:0 0 14px; letter-spacing:-0.025em;">Get your time back.</h2>
+            <p style="color:var(--on-ink-muted); font-size:19px; margin:0 auto; max-width:460px; line-height:1.55;">One call. We'll tell you what we'd build first, what it'd do, and what it'd cost. No jargon.</p>
+          </div>
+          <form id="home-form" class="ss-ctaform ss-ctaform--wide">
+            <div class="ss-ctaform__row">
+              <div class="ss-field">
+                <label class="ss-label" for="hf-name">Your name<span class="ss-label__req">*</span></label>
+                <input class="ss-input" id="hf-name" name="name" required>
+              </div>
+              <div class="ss-field">
+                <label class="ss-label" for="hf-email">Email<span class="ss-label__req">*</span></label>
+                <input class="ss-input" id="hf-email" name="email" type="email" required>
+              </div>
+              <div class="ss-field">
+                <label class="ss-label" for="hf-phone">Phone</label>
+                <input class="ss-input" id="hf-phone" name="phone" type="tel">
+              </div>
+            </div>
+            <div class="ss-field">
+              <label class="ss-label" for="hf-message">What's letting you down right now?</label>
+              <textarea class="ss-textarea" id="hf-message" name="message" rows="3"></textarea>
+            </div>
+            <div class="ss-ctaform__actions">
+              <span style="font-size:14.5px; color:var(--ink-500);">Prefer email? <a href="mailto:hello@stacksmith.ie" style="color:var(--forest); font-weight:600;">hello@stacksmith.ie</a></span>
+              <button class="ss-btn ss-btn--accent ss-btn--lg" type="submit">Send and book the call <span class="ss-btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></button>
+            </div>
+          </form>
+          <div id="home-form-sent" class="ss-ctaform ss-ctaform--wide ss-ctaform--sent" hidden>
+            <div style="width:52px; height:52px; border-radius:999px; background:var(--forest-tint); color:var(--forest); display:flex; align-items:center; justify-content:center; margin:0 auto 14px;"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+            <h3 style="font-family:var(--font-display); font-size:24px; font-weight:600; margin:0 0 8px; color:var(--ink); text-align:center;">Got it, thanks.</h3>
+            <p style="color:var(--ink-500); font-size:15px; margin:0; text-align:center; line-height:1.55;">We'll be in touch within one working day, usually sooner.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -621,5 +712,6 @@
 
 </div>
 <script src="js/main.js"></script>
+<script src="js/remix.js"></script>
 </body>
 </html>

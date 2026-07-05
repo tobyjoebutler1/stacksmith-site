@@ -3,12 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How we work — Stacksmith</title>
+<title>How we work · Stacksmith</title>
 <meta name="description" content="We're not a tool you buy. We do the work first, then make it run itself, then keep it running.">
 <link rel="icon" href="assets/stacksmith-logo.png">
+<!-- REMIX: social sharing meta -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="How we work · Stacksmith">
+<meta property="og:description" content="We do the work first, then make it run itself, then keep it running.">
+<meta property="og:url" content="https://stacksmith.ie/how-we-work.html">
+<meta name="twitter:card" content="summary">
+<!-- REMIX: fonts loaded from the head instead of a CSS @import, so they start downloading immediately -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/remix.css">
 </head>
 <body>
 <div style="background:var(--paper); color:var(--ink-700); font-family:var(--font-sans); min-height:100%;">
@@ -30,13 +41,27 @@
         </span>
       </a>
       <nav class="site-nav">
+        <a href="index.html">Home</a>
         <a href="services.html">Services</a>
         <a href="how-we-work.html" aria-current="page">How we work</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <div style="display:flex; align-items:center;">
+      <div class="cta-wrap" style="display:flex; align-items:center;">
         <a class="ss-btn ss-btn--primary ss-btn--sm" href="contact.html">Book a call <span class="ss-btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v16H3z"/><path d="M3 9h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span></a>
       </div>
+      <!-- REMIX: mobile nav toggle (shown under 700px) -->
+      <button class="ss-navtoggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu">
+        <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <!-- REMIX: mobile nav panel -->
+    <div class="ss-mobilenav" id="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="how-we-work.html" aria-current="page">How we work</a>
+      <a href="contact.html">Contact</a>
+      <a class="ss-mobilenav__cta" href="contact.html">Book a call</a>
     </div>
   </header>
 
@@ -46,7 +71,17 @@
       <div style="max-width:760px;">
         <span class="ss-section-label">How we work</span>
         <h1 style="font-family:var(--font-display); font-size:clamp(40px,5vw,68px); line-height:1.04; letter-spacing:-0.025em; font-weight:600; margin:18px 0 0; color:var(--ink); text-wrap:balance;">We're not a tool you buy. <em style="font-style:normal; color:var(--forest);">We're the people who run it.</em></h1>
-        <p style="font-size:20px; line-height:1.55; color:var(--ink-500); max-width:600px; margin:24px 0 0;">Most software hands you a dashboard and wishes you luck. We do the opposite — we do the work first, then make it run itself, then keep it running.</p>
+        <p style="font-size:20px; line-height:1.55; color:var(--ink-500); max-width:600px; margin:24px 0 0;">Most software hands you a dashboard and wishes you luck. We do the opposite. We do the work first, then make it run itself, then keep it running.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REMIX: ATMOSPHERE IMAGE ============ -->
+  <section style="padding:40px 0 8px;">
+    <div class="container ss-reveal">
+      <div class="hw-heroimg">
+        <img src="assets/howwework-desk.jpg" alt="A notebook of process notes with a hand-drawn flow sketch, a phone showing a customer text thread, and a coffee on a warm desk" width="1536" height="1024" loading="lazy">
+        <span class="ss-live hw-heroimg__chip"><span class="ss-live__dot"></span>The first version, done by hand</span>
       </div>
     </div>
   </section>
@@ -69,32 +104,81 @@
           <span style="color:var(--ink-300); display:flex; align-items:center;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
           <span class="ss-tag">Ask for review</span>
         </div>
-        <p style="color:var(--ink-500); font-size:16px; margin:22px 0 0; max-width:660px; line-height:1.6;">An enquiry comes in. It gets answered in minutes, followed up if it goes quiet, and — once the job's done — turned into a review. You didn't touch any of it.</p>
+        <p style="color:var(--ink-500); font-size:16px; margin:22px 0 0; max-width:660px; line-height:1.6;">An enquiry comes in. It gets answered in minutes, followed up if it goes quiet and, once the job's done, turned into a review. You didn't touch any of it.</p>
       </div>
     </div>
   </section>
 
   <!-- ============ THREE STEPS ============ -->
-  <section style="padding:48px 0 96px;">
+  <section style="padding:48px 0 80px;">
     <div class="container">
-      <div class="ss-reveal grid3" style="gap:36px;">
-        <div>
+      <div class="ss-reveal grid3 hw-steps" style="gap:22px;">
+        <div class="ss-spot hw-step">
           <span style="font-family:var(--font-mono); font-size:12px; color:var(--forest); letter-spacing:.1em;">01</span>
           <h4 style="font-family:var(--font-display); font-size:24px; font-weight:600; margin:16px 0 10px; color:var(--ink);">We do it by hand</h4>
-          <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">For the first while, we run the follow-ups and the chasing ourselves. It's the only way to learn how your business actually works — who calls, what they ask, what makes them book.</p>
-          <div style="height:1px; background:var(--line); margin-top:22px; position:relative;"><div class="ss-seqline" style="position:absolute; left:0; top:0; width:40%; height:1px; background:var(--forest);"></div></div>
+          <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">For the first while, we run the follow-ups and the chasing ourselves. It's the only way to learn how your business actually works: who calls, what they ask, what makes them book.</p>
+          <div class="hw-vig" aria-hidden="true">
+            <div class="hw-vig__sms"><b>Brennan Tiling <span>SMS · typed by us</span></b><p>Hi Sinéad, thanks for getting in touch about the bathroom retile. Mark will call you today.</p></div>
+          </div>
         </div>
-        <div>
+        <div class="ss-spot hw-step">
           <span style="font-family:var(--font-mono); font-size:12px; color:var(--forest); letter-spacing:.1em;">02</span>
           <h4 style="font-family:var(--font-display); font-size:24px; font-weight:600; margin:16px 0 10px; color:var(--ink);">We turn it into a system</h4>
           <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">Once we know the shape of it, we wire it up to keep happening on its own. The same judgement you'd use, running quietly in the background. Nothing for you to learn or open.</p>
-          <div style="height:1px; background:var(--line); margin-top:22px; position:relative;"><div class="ss-seqline" style="position:absolute; left:0; top:0; width:40%; height:1px; background:var(--forest); animation-range:cover 18% cover 48%;"></div></div>
+          <div class="hw-vig" aria-hidden="true">
+            <div class="hw-vig__flow">
+              <span class="ss-tag">Enquiry in</span>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+              <span class="ss-tag">Reply in 5 min</span>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+              <span class="ss-tag">Follow up</span>
+            </div>
+            <span class="hw-vig__note">now automatic</span>
+          </div>
         </div>
-        <div>
+        <div class="ss-spot hw-step">
           <span style="font-family:var(--font-mono); font-size:12px; color:var(--forest); letter-spacing:.1em;">03</span>
           <h4 style="font-family:var(--font-display); font-size:24px; font-weight:600; margin:16px 0 10px; color:var(--ink);">We run it for you</h4>
-          <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">We keep watching it. When something changes — a new service, a busy season, a tool that breaks — we adjust it. You never get handed a thing to maintain.</p>
-          <div style="height:1px; background:var(--line); margin-top:22px; position:relative;"><div class="ss-seqline" style="position:absolute; left:0; top:0; width:40%; height:1px; background:var(--forest); animation-range:cover 24% cover 54%;"></div></div>
+          <p style="color:var(--ink-500); font-size:16px; line-height:1.6; margin:0;">We keep watching it. When something changes (a new service, a busy season, a tool that breaks) we adjust it. You never get handed a thing to maintain.</p>
+          <div class="hw-vig" aria-hidden="true">
+            <div class="hw-vig__status">
+              <span><i></i>Review request · delivered</span>
+              <span><i></i>Missed call · text-back sent</span>
+              <span><i></i>Watched by Stacksmith</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REMIX: THE FIRST MONTH ============ -->
+  <section style="padding:0 0 96px; background:var(--paper-tint); padding-top:80px;">
+    <div class="container">
+      <div class="ss-reveal" style="max-width:640px;">
+        <span class="ss-section-label">The first month</span>
+        <h2 style="font-family:var(--font-display); font-size:clamp(30px,3.4vw,42px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; margin:16px 0 0; color:var(--ink);">What actually happens after you say go.</h2>
+      </div>
+      <div class="ss-reveal hw-weeks">
+        <div class="hw-week">
+          <div class="hw-week__bar"><i class="ss-seqline"></i></div>
+          <span class="hw-week__label">Week 1</span>
+          <p>We sit with you, learn how enquiries actually flow, and start running things by hand.</p>
+        </div>
+        <div class="hw-week">
+          <div class="hw-week__bar"><i class="ss-seqline"></i></div>
+          <span class="hw-week__label">Week 2</span>
+          <p>The first system goes live, doing exactly what we were doing manually.</p>
+        </div>
+        <div class="hw-week">
+          <div class="hw-week__bar"><i class="ss-seqline"></i></div>
+          <span class="hw-week__label">Week 3</span>
+          <p>We tune it on real enquiries and real customers, not test data.</p>
+        </div>
+        <div class="hw-week">
+          <div class="hw-week__bar"><i class="ss-seqline"></i></div>
+          <span class="hw-week__label">Week 4</span>
+          <p>It runs on its own. We keep watch and send you what it handled.</p>
         </div>
       </div>
     </div>
@@ -116,10 +200,10 @@
         <div>
           <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;"><span style="width:22px; height:2px; background:var(--on-ink-muted); border-radius:2px;"></span><span style="font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--on-ink-muted);">What you don't</span></div>
           <div>
-            <div style="display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--on-ink-faint); color:var(--on-ink-muted); font-size:16px;"><span style="color:var(--on-ink-muted);">—</span>A tool to learn and babysit</div>
-            <div style="display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--on-ink-faint); color:var(--on-ink-muted); font-size:16px;"><span style="color:var(--on-ink-muted);">—</span>A login you forget exists</div>
-            <div style="display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--on-ink-faint); color:var(--on-ink-muted); font-size:16px;"><span style="color:var(--on-ink-muted);">—</span>Another job on your plate</div>
-            <div style="display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--on-ink-faint); color:var(--on-ink-muted); font-size:16px;"><span style="color:var(--on-ink-muted);">—</span>A contract you can't get out of</div>
+            <div style="display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--on-ink-faint); color:var(--on-ink-muted); font-size:16px;"><span style="color:var(--on-ink-muted);">✕</span>A tool to learn and babysit</div>
+            <div style="display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--on-ink-faint); color:var(--on-ink-muted); font-size:16px;"><span style="color:var(--on-ink-muted);">✕</span>A login you forget exists</div>
+            <div style="display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--on-ink-faint); color:var(--on-ink-muted); font-size:16px;"><span style="color:var(--on-ink-muted);">✕</span>Another job on your plate</div>
+            <div style="display:flex; gap:12px; padding:14px 0; border-top:1px solid var(--on-ink-faint); color:var(--on-ink-muted); font-size:16px;"><span style="color:var(--on-ink-muted);">✕</span>A contract you can't get out of</div>
           </div>
         </div>
       </div>
@@ -151,7 +235,7 @@
           </svg>
         </div>
         <h2 style="font-family:var(--font-display); font-size:clamp(38px,5vw,64px); font-weight:600; color:var(--on-ink); margin:0 0 16px; letter-spacing:-0.025em; position:relative;">Let's build the first one.</h2>
-        <p style="color:var(--on-ink-muted); font-size:19px; margin:0 auto 32px; max-width:500px; position:relative; line-height:1.55;">Book a call and we'll tell you what we'd run by hand first — and what it'd look like once it runs itself.</p>
+        <p style="color:var(--on-ink-muted); font-size:19px; margin:0 auto 32px; max-width:500px; position:relative; line-height:1.55;">Book a call and we'll tell you what we'd run by hand first, and what it'd look like once it runs itself.</p>
         <div style="display:flex; gap:14px; justify-content:center; position:relative;">
           <a class="ss-btn ss-btn--accent ss-btn--lg" href="contact.html">Book a call <span class="ss-btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></a>
         </div>
@@ -201,5 +285,6 @@
 
 </div>
 <script src="js/main.js"></script>
+<script src="js/remix.js"></script>
 </body>
 </html>

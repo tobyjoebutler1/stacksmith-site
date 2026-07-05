@@ -1,0 +1,329 @@
+/* ============================================================
+   REMIX ADDITIONS — Claude's proposed upgrades, kept separate
+   from site.css so each idea can be cherry-picked or deleted.
+   Sections:
+     1. Header scroll state + mobile nav
+     2. Hero headline word reveal
+     3. Spotlight cards (How we work)
+     4. Pricing model section
+     5. Testimonial marquee (dark proof section)
+   ============================================================ */
+
+/* ---------- 1. Header: liquid glass + mobile nav ------------ */
+/* Flat and quiet at the top of the page; on scroll the bar
+   detaches into a floating liquid-glass capsule. The active
+   page always shows as a soft forest pill. */
+.site-header {
+  background: transparent;
+  border-bottom: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 10px 14px;
+}
+.site-header .bar {
+  height: 60px;
+  border-radius: 999px;
+  padding: 0 12px 0 22px;
+  border: 1px solid transparent;
+  transition: background 0.45s var(--ease-out),
+              border-color 0.45s var(--ease-out),
+              box-shadow 0.45s var(--ease-out),
+              backdrop-filter 0.45s var(--ease-out);
+}
+.site-header.is-scrolled .bar {
+  background: linear-gradient(135deg, rgba(251,250,246,0.72), rgba(244,241,233,0.52));
+  backdrop-filter: blur(22px) saturate(190%);
+  -webkit-backdrop-filter: blur(22px) saturate(190%);
+  border-color: rgba(255,255,255,0.65);
+  box-shadow: 0 14px 36px -18px rgba(26,25,21,0.32),
+              inset 0 1px 0 rgba(255,255,255,0.75),
+              inset 0 -1px 0 rgba(26,25,21,0.04);
+}
+.site-nav { gap: 4px; }
+.site-nav a {
+  padding: 9px 15px; border-radius: 999px;
+  transition: background var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
+}
+.site-nav a:hover { background: rgba(26,25,21,0.06); }
+.site-nav a[aria-current="page"] {
+  background: var(--forest-tint);
+  color: var(--forest-900);
+  box-shadow: inset 0 0 0 1px var(--forest-tint-2);
+}
+
+.ss-navtoggle {
+  display: none;
+  appearance: none; -webkit-appearance: none;
+  background: none; border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  width: 40px; height: 40px;
+  align-items: center; justify-content: center;
+  color: var(--ink); cursor: pointer;
+  flex: none;
+}
+.ss-navtoggle svg { width: 20px; height: 20px; }
+.ss-navtoggle .ic-close { display: none; }
+.ss-navtoggle[aria-expanded="true"] .ic-open { display: none; }
+.ss-navtoggle[aria-expanded="true"] .ic-close { display: block; }
+
+.ss-mobilenav {
+  display: none;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-raised);
+}
+.ss-mobilenav.is-open { display: block; }
+.ss-mobilenav a {
+  display: block;
+  padding: 16px 32px;
+  font-size: 17px; font-weight: 600;
+  color: var(--ink); text-decoration: none;
+  border-top: 1px solid var(--line);
+}
+.ss-mobilenav a[aria-current="page"] { color: var(--forest); }
+.ss-mobilenav .ss-mobilenav__cta {
+  color: var(--on-ink); background: var(--forest);
+  margin: 14px 32px 18px; padding: 14px 20px;
+  border-radius: var(--radius-md); text-align: center;
+  border-top: none;
+}
+
+@media (max-width: 700px) {
+  .site-nav { display: none; }
+  .site-header .cta-wrap { display: none; }
+  .ss-navtoggle { display: inline-flex; }
+}
+
+/* ---------- 2. Hero headline word reveal -------------------- */
+/* Words are wrapped in spans by remix.js only when motion is OK,
+   so no-JS and reduced-motion visitors see the plain headline. */
+.ss-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.45em);
+  filter: blur(6px);
+  animation: ssWordIn 0.7s var(--ease-out) forwards;
+  animation-delay: var(--wd, 0ms);
+}
+@keyframes ssWordIn {
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* ---------- 3. Spotlight cards (How we work) ---------------- */
+.ss-spot {
+  position: relative;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 30px 28px;
+  overflow: hidden;
+  transition: border-color var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+.ss-spot::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(44,110,75,0.09), transparent 65%);
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-out);
+  pointer-events: none;
+}
+.ss-spot:hover { border-color: var(--forest-tint-2); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.ss-spot:hover::before { opacity: 1; }
+.ss-spot > * { position: relative; }
+@media (prefers-reduced-motion: reduce) {
+  .ss-spot, .ss-spot:hover { transform: none; }
+}
+
+/* ---------- 4. Pricing model section ------------------------ */
+.ss-price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+.ss-price-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 34px 30px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.ss-price-card--accent { background: var(--ink); border-color: transparent; }
+.ss-price-card__step {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: .1em; color: var(--forest);
+}
+.ss-price-card--accent .ss-price-card__step { color: var(--mint-on-ink); }
+.ss-price-card h3 {
+  font-family: var(--font-display); font-size: 24px; font-weight: 600;
+  color: var(--ink); margin: 0; letter-spacing: -0.01em;
+}
+.ss-price-card--accent h3 { color: var(--on-ink); }
+.ss-price-card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-500); margin: 0; }
+.ss-price-card--accent p { color: var(--on-ink-muted); }
+.ss-price-card__foot {
+  margin-top: auto; padding-top: 18px;
+  font-size: 14px; font-weight: 600; color: var(--forest-900);
+  display: flex; align-items: center; gap: 8px;
+}
+.ss-price-card--accent .ss-price-card__foot { color: var(--mint-on-ink); }
+.ss-price-card__foot svg { width: 16px; height: 16px; flex: none; }
+
+/* ---------- 5. Testimonial marquee (dark section) ----------- */
+.ss-tmarq { position: relative; margin-top: 64px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.ss-tmarq__track { display: flex; gap: 18px; width: max-content; animation: ssTMarq 46s linear infinite; }
+.ss-tmarq:hover .ss-tmarq__track { animation-play-state: paused; }
+@keyframes ssTMarq { to { transform: translateX(calc(-50% - 9px)); } }
+.ss-tmarq__card {
+  flex: none; width: 330px;
+  background: rgba(244,241,233,0.05);
+  border: 1px solid var(--on-ink-faint);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+}
+.ss-tmarq__card p {
+  font-size: 15.5px; line-height: 1.55; color: var(--on-ink); margin: 0 0 14px;
+}
+.ss-tmarq__who { display: flex; align-items: center; gap: 10px; }
+.ss-tmarq__who b { font-size: 13.5px; font-weight: 600; color: var(--on-ink); display: block; line-height: 1.3; }
+.ss-tmarq__who span { font-size: 12.5px; color: var(--on-ink-muted); }
+.ss-tmarq__stars { color: var(--mint-on-ink); font-size: 12px; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+@media (prefers-reduced-motion: reduce) {
+  .ss-tmarq__track { animation: none; flex-wrap: wrap; width: auto; }
+  .ss-tmarq { -webkit-mask-image: none; mask-image: none; }
+  .ss-tmarq__group--dup { display: none; }
+}
+.ss-tmarq__group { display: flex; gap: 18px; }
+
+/* ---------- Responsive for new sections --------------------- */
+@media (max-width: 960px) {
+  .ss-price-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- 6. CSS-drawn MacBook (Websites tab) -------------- */
+/* Keeps the .ssx-macphoto__screen class so main.js's scale-fit
+   logic keeps working; the screen is now a real box in a drawn
+   laptop frame rather than a region floated over a photo. */
+.ssx-maccss { width: 100%; max-width: 500px; margin: 0 auto; position: relative; }
+.ssx-maccss__lid {
+  position: relative;
+  background: linear-gradient(180deg, #17171B, #0F0F12);
+  border: 1px solid #26262B;
+  border-bottom: none;
+  border-radius: 18px 18px 0 0;
+  padding: 17px 11px 13px;
+  box-shadow: 0 34px 64px -26px rgba(26,25,21,0.5);
+}
+.ssx-maccss__cam {
+  position: absolute; top: 6.5px; left: 50%; transform: translateX(-50%);
+  width: 4px; height: 4px; border-radius: 999px;
+  background: #303038; box-shadow: 0 0 2px rgba(0,0,0,0.8) inset;
+}
+.ssx-maccss .ssx-macphoto__screen {
+  position: relative; left: auto; top: auto;
+  width: 100%; height: auto; aspect-ratio: 440 / 290;
+  border-radius: 5px; overflow: hidden; background: #0B0B0D;
+}
+.ssx-maccss__base {
+  position: relative; height: 15px; margin: 0 -24px;
+  background: linear-gradient(180deg, #ECEAE4 0%, #CFCCC4 52%, #A6A39B 100%);
+  border-radius: 2px 2px 13px 13px;
+  box-shadow: 0 12px 26px -12px rgba(26,25,21,0.45);
+}
+.ssx-maccss__base i {
+  position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+  width: 92px; height: 6.5px;
+  background: linear-gradient(180deg, #B4B1A8, #DCD9D2);
+  border-radius: 0 0 9px 9px;
+}
+.ssx-maccss__base::after {
+  content: ""; position: absolute; left: 6px; right: 6px; top: 0;
+  height: 2px; background: rgba(26,25,21,0.18); border-radius: 2px;
+}
+@media (max-width: 700px) {
+  .ssx-maccss__base { margin: 0 -12px; }
+}
+
+
+/* ---------- 7. Home page enquiry form (dark CTA panel) ------- */
+.ss-ctaform--wide { max-width: 880px; margin: 0 auto; padding: 30px 32px; }
+.ss-ctaform__row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.ss-ctaform__actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+@media (max-width: 700px) {
+  .ss-ctaform__row { grid-template-columns: 1fr; }
+  .ss-ctaform__actions { flex-direction: column-reverse; align-items: stretch; text-align: center; }
+}
+.ss-ctaform {
+  background: var(--paper-raised);
+  border-radius: var(--radius-xl);
+  padding: 26px;
+  display: flex; flex-direction: column; gap: 14px;
+  box-shadow: var(--shadow-xl);
+  text-align: left;
+}
+.ss-ctaform--sent { justify-content: center; min-height: 300px; }
+.ss-ctaform__2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) {
+  .ss-ctaform__2col { grid-template-columns: 1fr; }
+}
+
+
+/* ---------- 8. How we work page ------------------------------ */
+.hw-heroimg {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 21 / 8;
+}
+.hw-heroimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hw-heroimg__chip {
+  position: absolute; left: 20px; bottom: 18px;
+  background: rgba(251,250,246,0.78);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: var(--shadow-sm);
+}
+@media (max-width: 700px) {
+  .hw-heroimg { aspect-ratio: 4 / 3; border-radius: var(--radius-xl); }
+}
+
+.hw-step { display: flex; flex-direction: column; }
+.hw-vig {
+  margin-top: 22px;
+  background: var(--paper-sunken);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.hw-step .hw-vig { margin-top: auto; padding-top: 16px; }
+.hw-step p + .hw-vig { margin-top: 22px; }
+.hw-vig__sms {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 12px 12px 12px 4px;
+  padding: 11px 13px;
+  box-shadow: var(--shadow-xs);
+}
+.hw-vig__sms b { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 5px; }
+.hw-vig__sms b span { font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-400); font-weight: 500; }
+.hw-vig__sms p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-700); }
+.hw-vig__flow { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; color: var(--ink-300); }
+.hw-vig__note { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--forest-900); }
+.hw-vig__status { display: flex; flex-direction: column; gap: 8px; }
+.hw-vig__status span { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; color: var(--ink-700); }
+.hw-vig__status i { width: 7px; height: 7px; border-radius: 999px; background: var(--forest); flex: none; }
+
+.hw-weeks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-top: 52px; }
+.hw-week__bar { height: 2px; background: var(--line); position: relative; border-radius: 2px; margin-bottom: 18px; }
+.hw-week__bar .ss-seqline { position: absolute; left: 0; top: 0; width: 100%; height: 2px; background: var(--forest); border-radius: 2px; display: block; }
+.hw-week__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--forest-900); }
+.hw-week p { font-size: 15px; line-height: 1.55; color: var(--ink-500); margin: 10px 0 0; }
+@media (max-width: 960px) {
+  .hw-weeks { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .hw-weeks { grid-template-columns: 1fr; gap: 22px; }
+}
