@@ -417,7 +417,7 @@
    panel: explanation left, the automation running right. Panel
    animations are one-shot (ssxIn) and restart on every open. */
 .ss-tabs {
-  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  display: flex; flex-wrap: wrap; gap: 4px;
   padding: 6px; background: var(--paper-raised); border: 1px solid var(--line);
   border-radius: 999px; width: max-content; max-width: 100%; margin: 44px 0 24px;
 }
@@ -425,12 +425,15 @@
 .ss-tab {
   appearance: none; -webkit-appearance: none; border: none; background: transparent; cursor: pointer;
   font-family: var(--font-sans); font-size: 14px; font-weight: var(--weight-semibold);
-  color: var(--ink-500); padding: 10px 18px; border-radius: 999px; white-space: nowrap;
+  color: var(--ink-500); padding: 10px 15px; border-radius: 999px; white-space: nowrap;
   transition: background var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
 }
 .ss-tab:hover { color: var(--ink); }
 .ss-tab[aria-selected="true"] { background: var(--ink); color: var(--on-ink); }
 .ss-tab:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+/* When the bar has to wrap onto two rows, soften the pill so the
+   corner tabs don't poke past the rounded ends. */
+@media (max-width: 1240px) { .ss-tabs { border-radius: 24px; } }
 
 .ss-showpanel { display: none; }
 .ss-showpanel.is-active { display: block; animation: ssxIn .45s var(--ease-out) both; }

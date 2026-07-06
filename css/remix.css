@@ -327,3 +327,52 @@
 @media (max-width: 540px) {
   .hw-weeks { grid-template-columns: 1fr; gap: 22px; }
 }
+
+/* ---------- ChatGPT-style mockup (AI visibility tab) ----------
+   Deliberately styled to read as ChatGPT: white sheet, grey user
+   pills on the right, plain assistant text with the logo avatar,
+   and the "Ask anything" voice input. */
+.ssx-gpt {
+  width: 100%; max-width: 400px; margin: 0 auto;
+  background: #fff; border: 1px solid #ececec; border-radius: 18px;
+  overflow: hidden; box-shadow: var(--shadow-md);
+  font-family: var(--font-sans);
+}
+.ssx-gpt__head {
+  display: flex; align-items: center; gap: 8px; padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0; color: #0d0d0d;
+}
+.ssx-gpt__head b { font-size: 14.5px; font-weight: 600; }
+.ssx-gpt__head .chev { color: #8f8f8f; display: inline-flex; margin-top: 2px; }
+.ssx-gpt__logo { display: inline-flex; color: #0d0d0d; }
+.ssx-gpt__body { padding: 18px 16px 6px; display: flex; flex-direction: column; gap: 14px; }
+.gpt-q {
+  align-self: flex-end; max-width: 80%;
+  background: #f4f4f4; color: #0d0d0d;
+  border-radius: 18px; padding: 9px 14px;
+  font-size: 13.5px; line-height: 1.45;
+}
+.gpt-a { display: flex; gap: 10px; align-items: flex-start; }
+.gpt-a__av {
+  flex: none; width: 24px; height: 24px; border-radius: 999px;
+  border: 1px solid #ececec; display: flex; align-items: center; justify-content: center;
+  color: #0d0d0d; margin-top: 1px; background: #fff;
+}
+.gpt-a p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #0d0d0d; }
+.gpt-a p b { font-weight: 600; }
+.ssx-gpt__input {
+  margin: 10px 12px 14px; display: flex; align-items: center; gap: 9px;
+  border: 1px solid #e3e3e3; border-radius: 999px; padding: 7px 7px 7px 14px;
+  color: #8f8f8f; font-size: 13.5px; box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.ssx-gpt__input .voice {
+  margin-left: auto; flex: none; width: 28px; height: 28px; border-radius: 999px;
+  background: #0d0d0d; color: #fff; display: inline-flex; align-items: center; justify-content: center;
+}
+/* entrance: same pop rhythm as the chatbot demo */
+.ssx--gpt .gpt-q, .ssx--gpt .gpt-a { animation-name: ssxPop; transform-origin: bottom left; }
+.ssx--gpt .gpt-q { transform-origin: bottom right; }
+.ssx--gpt [data-i="3"] { animation-delay: 1.5s; }
+.ssx--gpt [data-i="4"] { animation-delay: 2.5s; }
+.ssx--gpt [data-i="5"] { animation-delay: 3.5s; }
+.ssx--gpt [data-i="6"] { animation-delay: 4.3s; }
