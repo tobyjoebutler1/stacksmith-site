@@ -116,10 +116,15 @@
   border-radius: var(--radius-lg);
   padding: 30px 28px;
   overflow: hidden;
+  /* flex column so the underline pins to the card bottom: all three
+     lines sit level and their scroll-draw runs in sync */
+  display: flex; flex-direction: column;
   transition: border-color var(--duration-base) var(--ease-out),
               transform var(--duration-base) var(--ease-out),
               box-shadow var(--duration-base) var(--ease-out);
 }
+.ss-spot > div:last-child { margin-top: auto !important; }
+.ss-spot > p { margin-bottom: 22px !important; }
 .ss-spot::before {
   content: "";
   position: absolute; inset: 0;
