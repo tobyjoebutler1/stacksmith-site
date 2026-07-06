@@ -262,6 +262,8 @@
   text-align: left;
 }
 .ss-ctaform--sent { justify-content: center; min-height: 300px; }
+/* the flex display above would otherwise defeat the hidden attribute */
+.ss-ctaform[hidden] { display: none; }
 .ss-ctaform__2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 480px) {
   .ss-ctaform__2col { grid-template-columns: 1fr; }

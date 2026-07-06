@@ -194,6 +194,17 @@ document.querySelectorAll('.ss-accordion__item').forEach(function (item) {
   });
 });
 
+// Home CTA form → thank-you state
+var homeForm = document.getElementById('home-form');
+var homeSent = document.getElementById('home-form-sent');
+if (homeForm && homeSent) {
+  homeForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    homeForm.hidden = true;
+    homeSent.hidden = false;
+  });
+}
+
 // Contact form → thank-you state
 var form = document.getElementById('contact-form');
 var sentPanel = document.getElementById('form-sent');
