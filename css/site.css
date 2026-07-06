@@ -419,23 +419,29 @@
    panel: explanation left, the automation running right. Panel
    animations are one-shot (ssxIn) and restart on every open. */
 .ss-tabs {
-  display: flex; flex-wrap: wrap; gap: 4px;
+  /* full-width segmented bar: the tabs share one row and their type
+     and padding scale fluidly, so every tab always fits on one line */
+  display: flex; flex-wrap: nowrap; gap: 4px;
   padding: 6px; background: var(--paper-raised); border: 1px solid var(--line);
-  border-radius: 999px; width: max-content; max-width: 100%; margin: 44px 0 24px;
+  border-radius: 999px; width: 100%; margin: 44px 0 24px;
 }
 .ss-tabs::-webkit-scrollbar { display: none; }
 .ss-tab {
   appearance: none; -webkit-appearance: none; border: none; background: transparent; cursor: pointer;
-  font-family: var(--font-sans); font-size: 14px; font-weight: var(--weight-semibold);
-  color: var(--ink-500); padding: 10px 15px; border-radius: 999px; white-space: nowrap;
+  flex: 1 1 auto; min-width: 0; text-align: center;
+  font-family: var(--font-sans); font-size: clamp(11.5px, 1.05vw, 14px); font-weight: var(--weight-semibold);
+  color: var(--ink-500); padding: 10px clamp(6px, 0.8vw, 14px); border-radius: 999px; white-space: nowrap;
   transition: background var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
 }
 .ss-tab:hover { color: var(--ink); }
 .ss-tab[aria-selected="true"] { background: var(--ink); color: var(--on-ink); }
 .ss-tab:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
-/* When the bar has to wrap onto two rows, soften the pill so the
-   corner tabs don't poke past the rounded ends. */
-@media (max-width: 1240px) { .ss-tabs { border-radius: 24px; } }
+/* Only on small screens does the bar give up the single row and wrap
+   into a soft rounded block (the mobile layout). */
+@media (max-width: 840px) {
+  .ss-tabs { flex-wrap: wrap; width: max-content; max-width: 100%; border-radius: 24px; }
+  .ss-tab { flex: none; font-size: 13px; padding: 9px 13px; }
+}
 
 .ss-showpanel { display: none; }
 .ss-showpanel.is-active { display: block; animation: ssxIn .45s var(--ease-out) both; }
