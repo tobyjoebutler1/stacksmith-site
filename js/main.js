@@ -119,32 +119,99 @@
   });
 })();
 
-// Flow band (home): a pulse travels the pipeline, lighting each
-// station as it arrives. Loops while in view; pauses off-screen.
+// Showcase demos (home): the panel animations are one-shot CSS with
+// fixed delays, which would start at page load — long before anyone
+// scrolls down. site.css holds them paused until #services gets
+// .is-seen; we add it the first time a demo visual enters the viewport.
 (function () {
-  var band = document.getElementById('flow-band');
-  if (!band) return;
-  var parts = [].slice.call(band.children); // node, line, node, line…
+  var section = document.getElementById('services');
+  var visual = section && section.querySelector('.ssx');
+  if (!section || !visual) return;
+  if (!('IntersectionObserver' in window)) {
+    section.classList.add('is-seen');
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    if (!entries[0].isIntersecting) return;
+    section.classList.add('is-seen');
+    io.disconnect();
+  }, { threshold: 0.3 });
+  io.observe(visual);
+})();
+
+// Onboarding story deck (how-we-work): five scenes loop continuously
+// while the deck is in view — the outgoing scene lifts away, the next
+// one rises in, and a light beam sweeps the stage between them.
+// Scene-internal builds are CSS transitions/keyframes gated by .is-on
+// (--d / --nd delays); this driver only advances scenes. Pauses
+// off-screen and resumes on re-entry. Reduced motion → final frame.
+(function () {
+  var deck = document.getElementById('hw-deck');
+  if (!deck) return;
+  var stage = deck.querySelector('.hw-deck__stage');
+  var scenes = [].slice.call(deck.querySelectorAll('.hwd-scene'));
+  var DUR = [5800, 5400, 8000, 6600, 6000]; // per-scene ms
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (reduced || !('IntersectionObserver' in window)) {
-    parts.forEach(function (p) { p.classList.add('on'); }); // lit, static
+    deck.classList.add('is-static'); // final frame, everything visible
+    scenes[scenes.length - 1].classList.add('is-on');
     return;
   }
 
-  var STEP_TIMES = [200, 700, 1500, 2000, 2800, 3300, 4100, 4600, 5400];
-  var CYCLE_MS = 7600;
-  var timers = [], running = false;
+  var k = -1, timer = null, running = false;
+  function next() {
+    var prev = k >= 0 ? scenes[k] : null;
+    k = (k + 1) % scenes.length;
+    if (prev) {
+      prev.classList.remove('is-on');
+      prev.classList.add('is-out');
+      setTimeout(function () { prev.classList.remove('is-out'); }, 700);
+    }
+    stage.classList.remove('is-sweep');
+    void stage.offsetWidth; // retrigger the beam cleanly
+    stage.classList.add('is-sweep');
+    scenes[k].classList.add('is-on');
+    timer = setTimeout(next, DUR[k]);
+  }
 
+  new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting && !running) {
+      running = true;
+      next();
+    } else if (!entries[0].isIntersecting && running) {
+      running = false; // freeze in place; resumes on re-entry
+      clearTimeout(timer);
+    }
+  }, { threshold: 0.35 }).observe(deck);
+})();
+
+// Tradesperson system rail (how-we-work): a ball rides the track and
+// each station lights as it passes. Loops while in view; pauses
+// off-screen. Reduced motion / no IO → all stations lit, static.
+(function () {
+  var rail = document.getElementById('hw-rail');
+  if (!rail) return;
+  var stops = [].slice.call(rail.querySelectorAll('.hw-rail__stop'));
+  var ball = rail.querySelector('.hw-rail__ball');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduced || !('IntersectionObserver' in window)) {
+    stops.forEach(function (s) { s.classList.add('on'); });
+    return;
+  }
+
+  var TRAVEL = 5000, HOLD = 1900, timers = [], running = false;
   function cycle() {
-    band.classList.add('fb-reset');
-    parts.forEach(function (p) { p.classList.remove('on'); });
-    void band.offsetWidth; // flush so the reset isn't animated
-    band.classList.remove('fb-reset');
-    parts.forEach(function (p, i) {
-      timers.push(setTimeout(function () { p.classList.add('on'); }, STEP_TIMES[i]));
+    stops.forEach(function (s) { s.classList.remove('on'); });
+    ball.classList.remove('is-run');
+    void ball.offsetWidth; // restart the ball's animation cleanly
+    ball.classList.add('is-run');
+    stops.forEach(function (s, i) {
+      timers.push(setTimeout(function () { s.classList.add('on'); },
+        i * (TRAVEL / (stops.length - 1))));
     });
-    timers.push(setTimeout(cycle, CYCLE_MS));
+    timers.push(setTimeout(cycle, TRAVEL + HOLD));
   }
 
   new IntersectionObserver(function (entries) {
@@ -156,7 +223,7 @@
       timers.forEach(clearTimeout);
       timers = [];
     }
-  }, { threshold: 0.35 }).observe(band);
+  }, { threshold: 0.4 }).observe(rail);
 })();
 
 // "See it run" demo toggles (Services)

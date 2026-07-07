@@ -90,13 +90,8 @@
   .ssx-cir__ic::after, .ssx-meter__bar::after { animation: none !important; }
   .ssx-meter__bar::after { opacity: 1; }
   .ssx-tagx, .ssx-cloudmore { animation: none !important; translate: none !important; }
-  .fb-node__ic, .fb-node span, .fb-line i::before { transition: none !important; animation: none !important; }
-  .fb-node.on .fb-node__ic { transform: none; }
-  .fb-node.on .fb-node__ic::after { display: none; }
-  .fb-line i span { display: none !important; }
   .cb-dots { display: none !important; }
   .ss-vig__wave i { transform: scaleY(.55); }
-  .flow-band .ss-seqline::after { display: none; }
   .ssflow .ss-step { opacity: 1 !important; transform: none !important; transition: none !important; }
   .ssflow .ss-fill { transition: none !important; }
   .ssdemo-panel { transition: opacity .2s ease !important; }
@@ -119,10 +114,10 @@
 
 .ss-hero__stage { display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .ss-live {
-  display: inline-flex; align-items: center; gap: 8px;
+  /* bare broadcast caption — deliberately no pill chrome (user dislikes pills) */
+  display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--forest-900); background: var(--paper-raised); border: 1px solid var(--line);
-  padding: 7px 13px; border-radius: 999px;
+  color: var(--forest-900);
 }
 .ss-live__dot { width: 7px; height: 7px; border-radius: 999px; background: var(--forest); animation: ssPulse 2.2s infinite; }
 @keyframes ssPulse {
@@ -465,6 +460,11 @@
   position: relative; overflow: hidden;
 }
 @keyframes ssxIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+/* The demos hold at frame zero until the showcase scrolls into view —
+   main.js adds .is-seen to #services once a visual enters the viewport,
+   so the build plays in front of the visitor, not before they arrive. */
+#services:not(.is-seen) .ssx,
+#services:not(.is-seen) .ssx * { animation-play-state: paused !important; }
 .ssx [data-i], .ssx-browser[data-i] { animation: ssxIn .55s var(--ease-out) both; }
 .ssx [data-i="1"] { animation-delay: .15s; }
 .ssx [data-i="2"] { animation-delay: .5s; }
@@ -1067,61 +1067,6 @@
 }
 .ssx-note svg { color: #B07A1E; flex: none; }
 
-/* ---------- Flow band: a pulse runs the pipeline ------------
-   The five stations sit quietly in place; a glowing packet
-   travels the line, lighting each one up as it arrives. Loops
-   continuously while in view (js/main.js stepper adds .on). */
-.fb { display: flex; align-items: flex-start; justify-content: center; gap: 0; max-width: 940px; margin: 52px auto 0; }
-.fb-node { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 120px; flex: none; }
-.fb-node__ic {
-  position: relative; width: 64px; height: 64px; border-radius: 18px;
-  background: var(--paper-raised); border: 1px solid var(--line); color: var(--ink-300);
-  display: flex; align-items: center; justify-content: center;
-  transition: background .4s var(--ease-out), color .4s var(--ease-out),
-              border-color .4s var(--ease-out), box-shadow .4s var(--ease-out),
-              transform .4s var(--ease-out);
-}
-.fb-node span {
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--ink-400); text-align: center; transition: color .4s var(--ease-out);
-}
-.fb-node.on .fb-node__ic {
-  background: linear-gradient(165deg, var(--forest) 0%, var(--forest-700) 100%);
-  border-color: transparent; color: #fff; transform: translateY(-4px);
-  box-shadow: 0 14px 26px -10px rgba(44,110,75,.55);
-}
-.fb-node.on span { color: var(--forest-900); }
-.fb-node.on .fb-node__ic::after {
-  content: ""; position: absolute; inset: -1px; border-radius: 18px;
-  border: 2px solid var(--forest); animation: ssxSonar .9s ease-out 1;
-}
-.fb-line { flex: 1; height: 64px; display: flex; align-items: center; padding: 0 8px; }
-.fb-line i { flex: 1; height: 2px; background: var(--line); border-radius: 2px; position: relative; display: block; }
-.fb-line i::before { /* comet trail */
-  content: ""; position: absolute; inset: 0; border-radius: 2px;
-  background: linear-gradient(90deg, var(--forest), var(--forest-300));
-  transform: scaleX(0); transform-origin: left; transition: transform .55s linear;
-}
-.fb-line i span { /* the packet */
-  position: absolute; top: 50%; left: 0; width: 9px; height: 9px; margin-top: -4.5px;
-  border-radius: 99px; background: var(--forest);
-  box-shadow: 0 0 0 4px rgba(44,110,75,.15), 0 0 12px rgba(44,110,75,.6);
-  opacity: 0; transition: left .55s linear, opacity .15s ease;
-}
-.fb-line.on i::before { transform: scaleX(1); }
-.fb-line.on i span { opacity: 1; left: calc(100% - 9px); }
-.fb.fb-reset .fb-node__ic, .fb.fb-reset .fb-node span,
-.fb.fb-reset .fb-line i::before, .fb.fb-reset .fb-line i span { transition: none !important; }
-
-/* glint sweeping along the home flow band */
-.flow-band .ss-seqline { overflow: hidden; }
-.flow-band .ss-seqline::after {
-  content: ""; position: absolute; top: 0; bottom: 0; width: 34px;
-  background: linear-gradient(90deg, transparent, rgba(251,250,246,.85), transparent);
-  animation: ssSweep 3s linear infinite;
-}
-@keyframes ssSweep { from { transform: translateX(-40px); } to { transform: translateX(160px); } }
-
 /* ---------- Trust ticker (conveyor-belt marquee) ------------ */
 .ss-ticker { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 30px 0 34px; overflow: hidden; }
 .ss-ticker__label {
@@ -1142,6 +1087,11 @@
 .ss-ticker__dot { flex: none; width: 8px; height: 8px; border-radius: 999px; background: var(--forest); opacity: .5; }
 @keyframes ssTicker { to { transform: translateX(-50%); } }
 
+/* ---------- Footer legal links ------------------------------ */
+.ss-legal { color: inherit; text-decoration: none; }
+.ss-legal:hover { color: var(--ink); text-decoration: underline; }
+.ss-legal:focus-visible { outline: none; box-shadow: var(--shadow-focus); border-radius: 4px; }
+
 /* ---------- Responsive ------------------------------------- */
 @media (max-width: 1100px) {
   .ss-float { display: none; }
@@ -1161,8 +1111,6 @@
   .grid3 { grid-template-columns: 1fr !important; }
   .svc-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
   .split2, .faq-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-  .flow-band { overflow-x: auto; padding-bottom: 8px; }
-  .flow-band > .flow-band-inner { min-width: 720px; }
 }
 @media (max-width: 700px) {
   .container { padding: 0 22px; }
