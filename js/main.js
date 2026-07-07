@@ -93,6 +93,20 @@
   if (!tablist) return;
   var tabs = [].slice.call(tablist.querySelectorAll('.ss-tab'));
 
+  // Hold the opening scene until the showcase is actually on screen,
+  // so its one-shot animation doesn't play unseen at page load.
+  var wrap = document.querySelector('.ss-showwrap');
+  if (wrap && 'IntersectionObserver' in window) {
+    wrap.classList.add('ss-wait');
+    var gate = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        wrap.classList.remove('ss-wait');
+        gate.disconnect();
+      }
+    }, { threshold: 0.2 });
+    gate.observe(wrap);
+  }
+
   function select(tab) {
     tabs.forEach(function (t) {
       var on = t === tab;
