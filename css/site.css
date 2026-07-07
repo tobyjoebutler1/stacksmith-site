@@ -190,10 +190,16 @@
 .ss-phone__statusbar {
   /* the 27px content row is centred on the island's midline (top 13px
      + 27px island height), with clear air between icons and island */
-  position: relative; z-index: 4; display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 4; display: flex; justify-content: flex-end; align-items: center;
   height: 44px; padding: 13px 22px 4px 30px; color: var(--ink);
 }
-.ss-phone__time { font-size: 12.5px; font-weight: var(--weight-semibold); }
+.ss-phone__time {
+  font-size: 12.5px; font-weight: var(--weight-semibold);
+  /* dead-centre of the corner between the screen edge and the island:
+     (278px screen − 92px island) / 2 = 93px corner, on the island midline */
+  position: absolute; left: 0; top: 9px; bottom: 0; width: 93px;
+  display: flex; align-items: center; justify-content: center;
+}
 .ss-phone__sicons { display: inline-flex; align-items: center; gap: 4px; }
 .ss-phone__homebar {
   position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 5;
