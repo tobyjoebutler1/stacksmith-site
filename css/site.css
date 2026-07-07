@@ -472,11 +472,6 @@
   position: relative; overflow: hidden;
 }
 @keyframes ssxIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-/* The demos hold at frame zero until the showcase scrolls into view —
-   main.js adds .is-seen to #services once a visual enters the viewport,
-   so the build plays in front of the visitor, not before they arrive. */
-#services:not(.is-seen) .ssx,
-#services:not(.is-seen) .ssx * { animation-play-state: paused !important; }
 .ssx [data-i], .ssx-browser[data-i] { animation: ssxIn .55s var(--ease-out) both; }
 .ssx [data-i="1"] { animation-delay: .15s; }
 .ssx [data-i="2"] { animation-delay: .5s; }

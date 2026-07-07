@@ -133,26 +133,6 @@
   });
 })();
 
-// Showcase demos (home): the panel animations are one-shot CSS with
-// fixed delays, which would start at page load — long before anyone
-// scrolls down. site.css holds them paused until #services gets
-// .is-seen; we add it the first time a demo visual enters the viewport.
-(function () {
-  var section = document.getElementById('services');
-  var visual = section && section.querySelector('.ssx');
-  if (!section || !visual) return;
-  if (!('IntersectionObserver' in window)) {
-    section.classList.add('is-seen');
-    return;
-  }
-  var io = new IntersectionObserver(function (entries) {
-    if (!entries[0].isIntersecting) return;
-    section.classList.add('is-seen');
-    io.disconnect();
-  }, { threshold: 0.3 });
-  io.observe(visual);
-})();
-
 // Onboarding story deck (how-we-work): five scenes loop continuously
 // while the deck is in view — the outgoing scene lifts away, the next
 // one rises in, and a light beam sweeps the stage between them.
