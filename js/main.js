@@ -256,6 +256,8 @@ document.querySelectorAll('.ss-accordion__item').forEach(function (item) {
 });
 
 // Home CTA form → thank-you state
+// NOTE: neither this form nor the contact form sends anywhere yet —
+// wire them to a form backend before launch.
 var homeForm = document.getElementById('home-form');
 var homeSent = document.getElementById('home-form-sent');
 if (homeForm && homeSent) {

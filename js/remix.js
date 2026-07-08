@@ -74,16 +74,6 @@
   });
 })();
 
-// Home page enquiry form: thank-you state on submit.
-// NOTE: like the contact page, this does not send anywhere yet;
-// wire it to the form backend before launch.
-(function () {
-  var form = document.getElementById('home-form');
-  var sent = document.getElementById('home-form-sent');
-  if (!form || !sent) return;
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    form.hidden = true;
-    sent.hidden = false;
-  });
-})();
+// (Home enquiry form thank-you state is handled in main.js alongside
+// the contact form — NOTE: neither form sends anywhere yet; wire them
+// to the form backend before launch.)
